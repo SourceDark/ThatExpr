@@ -1,0 +1,27 @@
+<html>
+
+<head>
+	<title>收藏 | 辣个表情</title>
+	<link rel="shortcut icon" href="/image/favicon.ico"></link>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="/css/common/nav.css"></link>
+	<link rel="stylesheet" href="/css/common/content.css"></link>
+	<script src="/js/lib/reactjs/react.js"></script>
+	<script src="/js/lib/reactjs/react-dom.js"></script>
+    <script src="/js/lib/JSX.js"></script>
+    <script src="/js/lib/jquery-1.11.3.js"></script>
+	<script type="text/jsx" src="/js/collection.js"></script>
+</head>
+
+<body>
+	<div th:include="common/nav :: nav('collection')"></div>
+	<div class="content">
+		<div class="container">
+			<h2 class="title">收藏的表情</h2>
+			<div id="tagBox"></div>
+		</div>
+	</div>
+	<input style="display:none" id="id" th:value="${idString}"/>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+.logo {
+	height: 60px;
+}
+
+.slogan {
+	font-size: 28px;
+    color: #4c4c4c;
+    margin-top: 15px;
+}
+
+.status {
+    font-size: 22px;
+    color: #999;
+    margin-top: 10px; 
+}
+
+.idInput {
+	margin-top: 50px;
+	text-align: center;
+	height: 35px;
+	border-radius: 5px;
+}
+
+.enterButton {
+	display: block;
+	margin:10px auto 0px;
+	padding: 10px 20px;
+}

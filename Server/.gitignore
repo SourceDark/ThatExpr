@@ -1,0 +1,7 @@
+.settings/
+.idea/
+.project
+target/
+.classpath
+src/main/resources/static/image/expr/
+src/main/resources/application.properties

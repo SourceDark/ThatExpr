@@ -1,0 +1,32 @@
+<div th:fragment="nav (itemActive)">
+	<nav class="navbar navbar-inverse navbar-fixed-top lc-nav">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="">辣个表情 _(:з」∠)_</a>
+	    </div>
+	    <div id="navbar" class="navbar-collapse collapse">
+	      <ul class="nav navbar-nav">
+	        <li th:class="(${itemActive}==discover)?'active':''">
+	        	<a th:href="@{/s/{idStr}/discover(idStr=${idString})}">发现</a>
+	        </li>
+	        <li th:class="(${itemActive}==collection)?'active':''">
+	        	<a th:href="@{/s/{idStr}/collection(idStr=${idString})}">收藏</a>
+	        </li>
+	        <li><a href="#">搜索</a></li>
+	        <li th:class="(${itemActive}==upload)?'active':''">
+	        	<a th:href="@{/s/{idStr}/upload(idStr=${idString})}">上传</a>
+	        </li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	      	<li><a href="#">提交问题</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+</div>

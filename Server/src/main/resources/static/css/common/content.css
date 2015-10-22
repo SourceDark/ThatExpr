@@ -1,0 +1,32 @@
+.page {
+	text-align: center;
+	background-color: #fefefe;
+	font-family: "Microsoft JhengHei"
+}
+
+.masthead {
+	padding: 12% 0 11%
+}
+
+.content {
+	font-family: "Microsoft JhengHei";
+	padding-top: 50px;
+}
+
+.title {
+	margin-bottom: 15px;
+}
+
+.half-panel-left {
+	display: inline-block;
+	vertical-align: top;
+	width: 49%;
+	padding-right: 10px;
+}
+
+.half-panel-right {
+	display: inline-block;
+	vertical-align: top;
+	width: 49%;
+	padding-right: 10px;
+}
