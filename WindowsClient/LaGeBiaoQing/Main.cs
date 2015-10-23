@@ -11,6 +11,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LaGeBiaoQing.Service;
 
 namespace LaGeBiaoQing
 {
@@ -20,16 +21,33 @@ namespace LaGeBiaoQing
         {
             InitializeComponent();
 
-            AsyncRequest asyncRequest = NetworkUtility.Request;
-            IAsyncResult iAsyncResult = asyncRequest.BeginInvoke("tags/all", new AsyncCallback(allTagsRequestComplete), null);
+            tagsLoader.RunWorkerAsync();
+            
         }
 
-        void allTagsRequestComplete(IAsyncResult ar)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AsyncResult result = (AsyncResult)ar;
-            AsyncRequest asyncRequest = (AsyncRequest)result.AsyncDelegate;
-            string returnValue = asyncRequest.EndInvoke(ar);
-            Console.WriteLine(returnValue);
+
+        }
+
+        private void tagsLoader_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            e.Result = CollectionService.GetUsingTagContents();
+        }
+
+        private void tagsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Dictionary<string, long> dic = e.Result as Dictionary<string, long>;
+            List<string> list = new List<string>();
+            foreach (string key in dic.Keys)
+            {
+                list.Add(key + "(" + dic[key] + ")");
+            }
+            Console.WriteLine(list.First());
+            comboBox1.Items.Clear();
+            comboBox1.DataSource = list;
+            comboBox1.DisplayMember = list[0];
         }
     }
 }

@@ -11,7 +11,7 @@ namespace LaGeBiaoQing.Utility
 {
     class NetworkUtility
     {
-        public static String Request(String uri)
+        public static String SyncRequest(String uri)
         {
             String requestUrl = Properties.Settings.Default["ApiUrl"] + "/" + Properties.Settings.Default["IdString"] + "/" + uri;
             Console.WriteLine(requestUrl);
@@ -27,5 +27,4 @@ namespace LaGeBiaoQing.Utility
             return responseFromServer;
         }
     }
-    public delegate String AsyncRequest(String uri);
 }
