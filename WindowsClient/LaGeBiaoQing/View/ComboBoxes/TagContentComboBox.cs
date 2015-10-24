@@ -9,6 +9,7 @@ namespace LaGeBiaoQing.View.ComboBoxes
     enum TagContentComboBoxType { InCollectionTabPage, InDiscoverTabPage }
 
     public delegate void SelectTagContentEventHandler(object sender, TagContent selectTagContent);
+    public delegate void SelectNewestEventHandler(object sender);
 
     class TagContentComboBox : ComboBox
     {
@@ -17,6 +18,7 @@ namespace LaGeBiaoQing.View.ComboBoxes
         private List<TagContent> tagContents;
 
         public event SelectTagContentEventHandler SelectTagContent;
+        public event SelectNewestEventHandler SelectNewest;
 
         public TagContentComboBox(TagContentComboBoxType type)
         {
@@ -34,9 +36,19 @@ namespace LaGeBiaoQing.View.ComboBoxes
             switch (type)
             {
                 case TagContentComboBoxType.InDiscoverTabPage:
-                    if (SelectedIndex > 0)
+                    if (SelectedIndex == 0)
                     {
-                        SelectTagContent(this, tagContents[SelectedIndex]);
+                        if (this.SelectNewest != null)
+                        {
+                            SelectNewest(this);
+                        }
+                    }
+                    else
+                    {
+                        if (this.SelectTagContent != null)
+                        {
+                            SelectTagContent(this, tagContents[SelectedIndex]);
+                        }
                     }
                     break;
             }

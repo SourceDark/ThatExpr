@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.tagsLoader = new System.ComponentModel.BackgroundWorker();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.exprsLoader = new System.ComponentModel.BackgroundWorker();
             this.PictureLoader = new System.ComponentModel.BackgroundWorker();
@@ -44,20 +42,6 @@
             this.DiscoverPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 8);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // tagsLoader
-            // 
-            this.tagsLoader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.tagsLoader_DoWork);
-            this.tagsLoader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.tagsLoader_RunWorkerCompleted);
             // 
             // flowLayoutPanel1
             // 
@@ -107,7 +91,7 @@
             this.CollectionPage.Location = new System.Drawing.Point(4, 22);
             this.CollectionPage.Name = "CollectionPage";
             this.CollectionPage.Padding = new System.Windows.Forms.Padding(3);
-            this.CollectionPage.Size = new System.Drawing.Size(411, 431);
+            this.CollectionPage.Size = new System.Drawing.Size(282, 394);
             this.CollectionPage.TabIndex = 0;
             this.CollectionPage.Text = "收藏";
             this.CollectionPage.UseVisualStyleBackColor = true;
@@ -116,7 +100,6 @@
             // 
             this.DiscoverPage.Controls.Add(this.groupBox1);
             this.DiscoverPage.Controls.Add(this.flowLayoutPanel1);
-            this.DiscoverPage.Controls.Add(this.comboBox1);
             this.DiscoverPage.Location = new System.Drawing.Point(4, 22);
             this.DiscoverPage.Name = "DiscoverPage";
             this.DiscoverPage.Padding = new System.Windows.Forms.Padding(3);
@@ -153,9 +136,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.ComponentModel.BackgroundWorker tagsLoader;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.ComponentModel.BackgroundWorker exprsLoader;
         private System.ComponentModel.BackgroundWorker PictureLoader;

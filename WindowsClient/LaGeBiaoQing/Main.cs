@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using System.Net;
+using LaGeBiaoQing.View.ComboBoxes;
 
 namespace LaGeBiaoQing
 {
@@ -19,14 +20,16 @@ namespace LaGeBiaoQing
         private string cachePath;
 
         // Variables
-
-        private List<TagContent> tagContents;
+        
         private List<Expr> exprs;
 
         // Components
 
-        private int selectTagContentIndex;
+        private TagContent selectTagContent;
         private List<PictureBox> pictureBoxs = new List<PictureBox>();
+
+        // Custom Components
+        private TagContentComboBox tagContentComboBox;
 
         // Handles
 
@@ -42,8 +45,9 @@ namespace LaGeBiaoQing
         public Main()
         {
             InitializeComponent();
-
-            tagsLoader.RunWorkerAsync();
+            InitializeCustomComponent();
+            
+            tagContentComboBox.loadTagContents();
 
             Process qqProcess = Process.GetProcessesByName("QQ").FirstOrDefault();
             if (qqProcess != null)
@@ -59,31 +63,30 @@ namespace LaGeBiaoQing
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        public void InitializeCustomComponent()
         {
-            this.comboBox1.Enabled = false;
-            ComboBox comboBox = sender as ComboBox;
-            selectTagContentIndex = comboBox.SelectedIndex;
+            tagContentComboBox = new TagContentComboBox(TagContentComboBoxType.InDiscoverTabPage);
+            tagContentComboBox.FormattingEnabled = true;
+            tagContentComboBox.Location = new System.Drawing.Point(6, 8);
+            tagContentComboBox.Name = "tagContentComboBox";
+            tagContentComboBox.Size = new System.Drawing.Size(121, 20);
+            tagContentComboBox.TabIndex = 0;
+            tagContentComboBox.SelectTagContent += TagContentComboBox_SelectTagContent;
+            tagContentComboBox.SelectNewest += TagContentComboBox_SelectNewest;
+
+            DiscoverPage.Controls.Add(tagContentComboBox);
+        }
+
+        private void TagContentComboBox_SelectTagContent(object sender, TagContent selectTagContent)
+        {
+            this.selectTagContent = selectTagContent;
             exprsLoader.RunWorkerAsync();
         }
 
-        // Tags Loader Functions
-
-        private void tagsLoader_DoWork(object sender, DoWorkEventArgs e)
+        private void TagContentComboBox_SelectNewest(object sender)
         {
-            tagContents = TagService.GetAllTagContents();
-        }
-
-        private void tagsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            List<string> list = new List<string>();
-            foreach (TagContent tagContent in tagContents)
-            {
-                list.Add((tagContent.content.Length > 0 ? tagContent.content : "默认") + "(" + tagContent.useAmount + ")");
-            }
-            comboBox1.Items.Clear();
-            comboBox1.DataSource = list;
-            comboBox1.DisplayMember = list[0];
+            this.selectTagContent = null;
+            exprsLoader.RunWorkerAsync();
         }
 
         // Flow
@@ -97,7 +100,14 @@ namespace LaGeBiaoQing
 
         private void exprsLoader_DoWork(object sender, DoWorkEventArgs e)
         {
-            exprs = ExprService.GetAllExprsByTagContent(tagContents[selectTagContentIndex].content);
+            if (selectTagContent != null)
+            {
+                exprs = ExprService.GetAllExprsByTagContent(selectTagContent.content);
+            }
+            else
+            {
+                exprs = ExprService.GetAllExprsByTagContent("");
+            }
         }
 
         private void exprsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -176,7 +186,7 @@ namespace LaGeBiaoQing
 
         private void PictureLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            comboBox1.Enabled = true;
+            this.tagContentComboBox.Enabled = true;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
