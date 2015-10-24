@@ -37,10 +37,19 @@ namespace LaGeBiaoQing.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://lagebiaoqing.com/api")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://115.28.224.94//api")]
         public string ApiUrl {
             get {
                 return ((string)(this["ApiUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://115.28.224.94//expr")]
+        public string ExprUrl {
+            get {
+                return ((string)(this["ExprUrl"]));
             }
         }
     }

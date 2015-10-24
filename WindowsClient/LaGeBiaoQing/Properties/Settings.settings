@@ -6,7 +6,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ApiUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://lagebiaoqing.com/api</Value>
+      <Value Profile="(Default)">http://115.28.224.94//api</Value>
+    </Setting>
+    <Setting Name="ExprUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://115.28.224.94//expr</Value>
     </Setting>
   </Settings>
 </SettingsFile>
