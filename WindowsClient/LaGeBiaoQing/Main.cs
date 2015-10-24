@@ -126,9 +126,8 @@ namespace LaGeBiaoQing
                 pictureBox.Height = 40;
                 pictureBox.Tag = i++;
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                //pictureBox.ImageLocation = Properties.Settings.Default["ExprUrl"] + "/" + expr.md5 + expr.extension;
                 pictureBox.Click += PictureBox_Click;
-
+                pictureBox.MouseEnter += PictureBox_MouseEnter;
                 // add to list
                 flowLayoutPanel1.Controls.Add(pictureBox);
                 pictureBoxs.Add(pictureBox);
@@ -143,24 +142,23 @@ namespace LaGeBiaoQing
         private void PictureBox_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
-            //System.Windows.Forms.Clipboard.SetImage(pictureBox.Image);
-            //System.Windows.Forms.Clipboard.SetDataObject("<!--StartFragment--><img src=\"" + pictureBox.ImageLocation + "\"/><!--EndFragment-->");
             string[] s = new string[1];
             s[0] = cachePath + "\\" + exprs[(int)pictureBox.Tag].md5 + exprs[(int)pictureBox.Tag].extension;
-            //System.Windows.Forms.Clipboard.SetFileDropList(sc);
-            //System.Windows.Forms.Clipboard.SetFileDropList
-            //DataObject dataObject = new DataObject(DataFormats.OemText, pictureBox.ImageLocation);
-            //DataObject dataObject = new DataObject(DataFormats.Html, "<!--StartFragment--><img src=\"" + pictureBox.ImageLocation + "\"/><!--EndFragment-->");
             DataObject dataObject = new DataObject();
-            //DataObject dataObject = new DataObject("QQ_RichEdit_Format", "< QQRichEditFormat >< Info version = \"1001\" ></ Info >< EditElement type = \"1\" filepath = \"F:\\temp.gif\" shortcut = \"\" ></ EditElement ></ QQRichEditFormat >");
             dataObject.SetData(DataFormats.FileDrop, s);
             dataObject.SetData(DataFormats.Bitmap, pictureBox.Image);
             Clipboard.SetDataObject(dataObject);
-            //Clipboard.SetFileDropList(sc);
-            //Console.WriteLine(Clipboard.GetFileDropList()[0]);
-            //System.Windows.Forms.Clipboard.SetDataObject(dataObject);
-            SetForegroundWindow(qqHandle);
-            SendKeys.SendWait("^V");
+            if (qqHandle != null)
+            {
+                SetForegroundWindow(qqHandle);
+                SendKeys.SendWait("^V");
+            }
+        }
+
+        private void PictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            largerViewerr.Image = pictureBox.Image;
         }
 
         // Picture Loader Functions

@@ -34,7 +34,9 @@
             this.exprsLoader = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PictureLoader = new System.ComponentModel.BackgroundWorker();
+            this.largerViewerr = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.largerViewerr)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -82,16 +84,27 @@
             this.PictureLoader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.PictureLoader_ProgressChanged);
             this.PictureLoader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.PictureLoader_RunWorkerCompleted);
             // 
+            // largerViewerr
+            // 
+            this.largerViewerr.Location = new System.Drawing.Point(12, 256);
+            this.largerViewerr.Name = "largerViewerr";
+            this.largerViewerr.Size = new System.Drawing.Size(260, 201);
+            this.largerViewerr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.largerViewerr.TabIndex = 3;
+            this.largerViewerr.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 469);
+            this.Controls.Add(this.largerViewerr);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.comboBox1);
             this.Name = "Main";
             this.Text = "Main";
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.largerViewerr)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -104,5 +117,6 @@
         private System.ComponentModel.BackgroundWorker exprsLoader;
         private System.Windows.Forms.Panel panel1;
         private System.ComponentModel.BackgroundWorker PictureLoader;
+        private System.Windows.Forms.PictureBox largerViewerr;
     }
 }
