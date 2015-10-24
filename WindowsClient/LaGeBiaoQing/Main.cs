@@ -63,6 +63,7 @@ namespace LaGeBiaoQing
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.comboBox1.Enabled = false;
             ComboBox comboBox = sender as ComboBox;
             selectTagContentIndex = comboBox.SelectedIndex;
             exprsLoader.RunWorkerAsync();
@@ -187,6 +188,7 @@ namespace LaGeBiaoQing
 
         private void PictureLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            comboBox1.Enabled = true;
         }
     }
 }
