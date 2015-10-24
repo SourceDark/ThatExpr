@@ -95,6 +95,12 @@
     <Compile Include="Service\ExprService.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Utility\NetworkUtility.cs" />
+    <Compile Include="View\ComboBoxes\TagContentComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\TabPages\CollectionTagPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +142,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

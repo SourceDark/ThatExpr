@@ -4,13 +4,11 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using LaGeBiaoQing.Service;
 using LaGeBiaoQing.Model;
-using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using System.Net;
-using System.Drawing;
 
 namespace LaGeBiaoQing
 {
@@ -73,21 +71,11 @@ namespace LaGeBiaoQing
 
         private void tagsLoader_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = TagService.GetUsingTagContents();
+            tagContents = TagService.GetAllTagContents();
         }
 
         private void tagsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Dictionary<string, long> dic = e.Result as Dictionary<string, long>;
-            tagContents = new List<TagContent>();
-            foreach (string key in dic.Keys)
-            {
-                TagContent tagContent = new TagContent();
-                tagContent.content = key;
-                tagContent.useAmount = dic[key];
-                tagContents.Add(tagContent);
-            }
-            tagContents.Sort(delegate (TagContent a, TagContent b) { return b.useAmount.CompareTo(a.useAmount); });
             List<string> list = new List<string>();
             foreach (TagContent tagContent in tagContents)
             {
@@ -123,8 +111,8 @@ namespace LaGeBiaoQing
             foreach (Expr expr in exprs)
             {
                 PictureBox pictureBox = new PictureBox();
-                pictureBox.Width = 40;
-                pictureBox.Height = 40;
+                pictureBox.Width = (flowLayoutPanel1.Width - flowLayoutPanel1.Margin.All * 2 - flowLayoutPanel1.Padding.Right - 40) / 5;
+                pictureBox.Height = pictureBox.Width;
                 pictureBox.Tag = i++;
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox.Click += PictureBox_Click;
@@ -189,6 +177,16 @@ namespace LaGeBiaoQing
         private void PictureLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             comboBox1.Enabled = true;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void largerViewerr_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

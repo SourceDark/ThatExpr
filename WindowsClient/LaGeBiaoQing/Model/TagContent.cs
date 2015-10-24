@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LaGeBiaoQing.Model
 {
-    class TagContent
+    public class TagContent
     {
         public string content;
         public long useAmount;
