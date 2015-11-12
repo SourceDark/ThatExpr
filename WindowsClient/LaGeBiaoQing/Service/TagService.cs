@@ -3,7 +3,6 @@ using LaGeBiaoQing.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace LaGeBiaoQing.Service
 {

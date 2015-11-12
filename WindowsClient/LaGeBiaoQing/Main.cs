@@ -80,12 +80,17 @@ namespace LaGeBiaoQing
         private void TagContentComboBox_SelectTagContent(object sender, TagContent selectTagContent)
         {
             this.selectTagContent = selectTagContent;
+            // Disable tagContentComboBox to pretent error
+            tagContentComboBox.Enabled = false;
             exprsLoader.RunWorkerAsync();
         }
 
         private void TagContentComboBox_SelectNewest(object sender)
         {
+            // TODO Can't simply use null to represent newest, since there may be more type
             this.selectTagContent = null;
+            // Disable tagContentComboBox to pretent error
+            tagContentComboBox.Enabled = false;
             exprsLoader.RunWorkerAsync();
         }
 
@@ -186,7 +191,7 @@ namespace LaGeBiaoQing
 
         private void PictureLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.tagContentComboBox.Enabled = true;
+            tagContentComboBox.Enabled = true;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
