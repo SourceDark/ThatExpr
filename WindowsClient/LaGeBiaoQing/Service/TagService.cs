@@ -1,8 +1,9 @@
 ﻿using LaGeBiaoQing.Model;
 using LaGeBiaoQing.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
+using System.Windows.Forms;
 
 namespace LaGeBiaoQing.Service
 {
@@ -10,9 +11,8 @@ namespace LaGeBiaoQing.Service
     {
         public static List<TagContent> GetAllTagContents()
         {
-            JavaScriptSerializer Serializer = new JavaScriptSerializer();
             String response = NetworkUtility.SyncRequest("tags/all");
-            Dictionary<String, Int64> dic = Serializer.Deserialize<Dictionary<String, Int64>>(response);
+            Dictionary<String, Int64> dic = JsonConvert.DeserializeObject<Dictionary<string, long>>(response);
             List<TagContent> tagContents = new List<TagContent>();
             foreach (string key in dic.Keys)
             {

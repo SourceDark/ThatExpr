@@ -66,6 +66,11 @@ namespace LaGeBiaoQing.View.ComboBoxes
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (tagContents == null)
+            {
+                MessageBox.Show("tagContents is null");
+                return;
+            }
             // calculate data
             List<string> list = new List<string>();
             switch (type)
