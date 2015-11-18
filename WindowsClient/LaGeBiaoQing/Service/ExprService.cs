@@ -18,5 +18,13 @@ namespace LaGeBiaoQing.Service
             List<Expr> list = Serializer.Deserialize<List<Expr>>(response);
             return list;
         }
+
+        public static List<Expr> GetMyExprsByTagContent(string tagContent)
+        {
+            JavaScriptSerializer Serializer = new JavaScriptSerializer();
+            String response = NetworkUtility.SyncRequest("exprs/my?tag=" + tagContent);
+            List<Expr> list = Serializer.Deserialize<List<Expr>>(response);
+            return list;
+        }
     }
 }

@@ -82,6 +82,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility\ExprUtility.cs" />
+    <Compile Include="View\BackgroundWorker\IdWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +107,9 @@
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Utility\NetworkUtility.cs" />
     <Compile Include="View\ComboBoxes\TagContentComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\FlowLayoutPanel\ExprsDisplayer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\TabPages\CollectionTagPage.cs">
