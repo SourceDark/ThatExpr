@@ -23,5 +23,21 @@ namespace LaGeBiaoQing.Service
             tagContents.Sort(delegate (TagContent a, TagContent b) { return b.useAmount.CompareTo(a.useAmount); });
             return tagContents;
         }
+
+        public static List<TagContent> GetMyTagContents()
+        {
+            String response = NetworkUtility.SyncRequest("tags/my");
+            Dictionary<String, Int64> dic = JsonConvert.DeserializeObject<Dictionary<string, long>>(response);
+            List<TagContent> tagContents = new List<TagContent>();
+            foreach (string key in dic.Keys)
+            {
+                TagContent tagContent = new TagContent();
+                tagContent.content = key;
+                tagContent.useAmount = dic[key];
+                tagContents.Add(tagContent);
+            }
+            tagContents.Sort(delegate (TagContent a, TagContent b) { return b.useAmount.CompareTo(a.useAmount); });
+            return tagContents;
+        }
     }
 }

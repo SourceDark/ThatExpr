@@ -10,6 +10,7 @@ using System.Linq;
 using System.IO;
 using System.Net;
 using LaGeBiaoQing.View.ComboBoxes;
+using LaGeBiaoQing.View.TabPages;
 
 namespace LaGeBiaoQing
 {
@@ -30,6 +31,7 @@ namespace LaGeBiaoQing
 
         // Custom Components
         private TagContentComboBox tagContentComboBox;
+        private CollectionTagPage collectionTagPage;
 
         // Handles
 
@@ -73,8 +75,12 @@ namespace LaGeBiaoQing
             tagContentComboBox.TabIndex = 0;
             tagContentComboBox.SelectTagContent += TagContentComboBox_SelectTagContent;
             tagContentComboBox.SelectNewest += TagContentComboBox_SelectNewest;
-
             DiscoverPage.Controls.Add(tagContentComboBox);
+
+            collectionTagPage = new CollectionTagPage();
+            IntPtr h = this.tabControl1.Handle;
+            tabControl1.TabPages.Insert(0, collectionTagPage);
+            tabControl1.SelectedIndex = 0;
         }
 
         private void TagContentComboBox_SelectTagContent(object sender, TagContent selectTagContent)

@@ -61,7 +61,15 @@ namespace LaGeBiaoQing.View.ComboBoxes
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            tagContents = TagService.GetAllTagContents();
+            switch (this.type)
+            {
+                case TagContentComboBoxType.InCollectionTabPage:
+                    tagContents = TagService.GetMyTagContents();
+                    break;
+                case TagContentComboBoxType.InDiscoverTabPage:
+                    tagContents = TagService.GetAllTagContents();
+                    break;
+            }
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -76,7 +84,7 @@ namespace LaGeBiaoQing.View.ComboBoxes
             switch (type)
             {
                 case TagContentComboBoxType.InCollectionTabPage:
-                    list.Add("最近");
+                    list.Add("最近使用");
                     foreach (TagContent tagContent in tagContents)
                     {
                         list.Add((tagContent.content.Length > 0 ? tagContent.content : "默认") + "(" + tagContent.useAmount + ")");
