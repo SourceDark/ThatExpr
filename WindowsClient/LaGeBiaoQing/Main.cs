@@ -11,6 +11,7 @@ using System.IO;
 using System.Net;
 using LaGeBiaoQing.View.ComboBoxes;
 using LaGeBiaoQing.View.TabPages;
+using LaGeBiaoQing.Utility;
 
 namespace LaGeBiaoQing
 {
@@ -177,22 +178,10 @@ namespace LaGeBiaoQing
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            WebClient client = new WebClient();
             for (int i = 0; i < exprs.Count; i++)
             {
-                string url = Properties.Settings.Default["ExprUrl"] + "/" + exprs[i].md5 + exprs[i].extension;
-                if (!File.Exists(cachePath + "\\" + exprs[i].md5 + exprs[i].extension))
-                {
-                    client.DownloadFile(url, cachePath + "\\" + exprs[i].md5 + exprs[i].extension);
-                }
-                worker.ReportProgress(i);
+                pictureBoxs[i].ImageLocation = ExprUtility.getRemoteExprFile(exprs[i]);
             }
-        }
-
-        private void PictureLoader_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            int index = e.ProgressPercentage;
-            pictureBoxs[index].ImageLocation = cachePath + "\\" + exprs[index].md5 + exprs[index].extension;
         }
 
         private void PictureLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

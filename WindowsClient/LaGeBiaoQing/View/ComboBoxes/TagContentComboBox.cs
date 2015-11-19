@@ -1,5 +1,6 @@
 ﻿using LaGeBiaoQing.Model;
 using LaGeBiaoQing.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -48,6 +49,19 @@ namespace LaGeBiaoQing.View.ComboBoxes
                         if (this.SelectTagContent != null)
                         {
                             SelectTagContent(this, tagContents[SelectedIndex]);
+                        }
+                    }
+                    break;
+                case TagContentComboBoxType.InCollectionTabPage:
+                    if (SelectedIndex == 0)
+                    {
+                        Console.WriteLine("最近使用未实现");
+                    }
+                    else 
+                    {
+                        if (this.SelectTagContent != null)
+                        {
+                            SelectTagContent(this, tagContents[SelectedIndex - 1]);
                         }
                     }
                     break;

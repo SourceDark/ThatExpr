@@ -49,9 +49,7 @@
             // 
             // PictureLoader
             // 
-            this.PictureLoader.WorkerReportsProgress = true;
             this.PictureLoader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.PictureLoader_DoWork);
-            this.PictureLoader.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.PictureLoader_ProgressChanged);
             this.PictureLoader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.PictureLoader_RunWorkerCompleted);
             // 
             // DiscoverPage
