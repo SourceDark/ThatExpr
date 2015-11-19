@@ -111,6 +111,9 @@
     <Compile Include="View\FlowLayoutPanels\ExprsDisplayer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\PictureBoxs\ExprDisplayer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\TabPages\CollectionTagPage.cs">
       <SubType>Component</SubType>
     </Compile>
