@@ -17,9 +17,6 @@ namespace LaGeBiaoQing
 {
     public partial class Main : Form
     {
-        // System infos 
-
-        private string cachePath;
 
         // Variables
         
@@ -59,11 +56,7 @@ namespace LaGeBiaoQing
             }
 
             // Create a path to store exprs.
-            cachePath = Directory.GetCurrentDirectory() + "\\expr";
-            if (!Directory.Exists(cachePath))
-            {
-                Directory.CreateDirectory(cachePath);
-            }
+            SettingUtility.CachePath = Directory.GetCurrentDirectory() + "\\expr";
         }
 
         public void InitializeCustomComponent()

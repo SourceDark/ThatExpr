@@ -11,5 +11,17 @@ namespace LaGeBiaoQing.Utility
         {
             return Properties.Settings.Default["IdString"] as string;
         }
+
+        public static string CachePath
+        {
+            get
+            {
+                return Properties.Settings.Default["CachePath"] as string;
+            }
+            set
+            {
+                Properties.Settings.Default["CachePath"] = value;
+            }
+        }
     }
 }
