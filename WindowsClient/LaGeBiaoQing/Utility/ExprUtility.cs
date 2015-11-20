@@ -10,23 +10,6 @@ namespace LaGeBiaoQing.Utility
 {
     class ExprUtility
     {
-        static private string cachePath;
-        static private string CachePath
-        {
-            get
-            {
-                if (cachePath == null)
-                {
-                    cachePath = Directory.GetCurrentDirectory() + "\\expr";
-                    if (!Directory.Exists(cachePath))
-                    {
-                        Directory.CreateDirectory(cachePath);
-                    }
-                }
-                return cachePath;
-            }
-        }
-
         static private List<string> downloadingExprs;
         static private List<string> DownloadingExprs
         {
@@ -35,18 +18,7 @@ namespace LaGeBiaoQing.Utility
                 return downloadingExprs ?? (downloadingExprs = new List<string>());
             }
         }
-
-
-        static private string fullPath(Expr expr)
-        {
-            return CachePath + "\\" + expr.filename();
-        }
-
-        static private string fullUrl(Expr expr)
-        {
-            return Properties.Settings.Default["ExprUrl"] + "/" + expr.filename();
-        }
-
+        
         static private Object lock1 = new Object();
         static public string getRemoteExprFile(Expr expr)
         {
@@ -55,8 +27,8 @@ namespace LaGeBiaoQing.Utility
             {
                 if (!DownloadingExprs.Contains(expr.md5))
                 {
-                    if (File.Exists(fullPath(expr))) {
-                        return fullPath(expr);
+                    if (File.Exists(FileUtility.FullPath(expr))) {
+                        return FileUtility.FullPath(expr);
                     }
                     else
                     {
@@ -72,14 +44,14 @@ namespace LaGeBiaoQing.Utility
             if (duty)
             {
                 WebClient client = new WebClient();
-                client.DownloadFile(fullUrl(expr), fullPath(expr));
+                client.DownloadFile(NetworkUtility.FullUrl(expr), FileUtility.FullPath(expr));
                 DownloadingExprs.Remove(expr.md5);
-                return fullPath(expr);
+                return FileUtility.FullPath(expr);
             }
             else
             {
                 while (DownloadingExprs.Contains(expr.md5));
-                return fullPath(expr);
+                return FileUtility.FullPath(expr);
             }
         }
     }

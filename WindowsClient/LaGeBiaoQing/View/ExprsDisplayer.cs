@@ -1,11 +1,9 @@
 ﻿using LaGeBiaoQing.Model;
 using LaGeBiaoQing.Service;
 using LaGeBiaoQing.Utility;
-using System;
+using LaGeBiaoQing.View.PictureBoxs;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace LaGeBiaoQing.View.FlowLayoutPanels
@@ -18,9 +16,13 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
         public string idString;
     }
 
+    public delegate void MouseOnExprEventHandler(object sender, Expr expr);
+
     class ExprsDisplayer : FlowLayoutPanel
     {
         private long requestId;
+
+        public event MouseOnExprEventHandler MouseOnExpr;
 
         public ExprsDisplayer()
         {
@@ -58,30 +60,36 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
             }
             for (int i = 0; i < worker.exprs.Count; i++)
             {
-                worker.exprs[i].fullPath = ExprUtility.getRemoteExprFile(worker.exprs[i]);
+                ExprUtility.getRemoteExprFile(worker.exprs[i]);
                 worker.ReportProgress(i);
             }
         }
 
-        // This is always in main thread, so we don't have lock it
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             RemoteExprsLoader worker = sender as RemoteExprsLoader;
             if (worker.id == requestId)
             {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.Width = (this.Width - this.Margin.All * 2 - this.Padding.Right - 40) / 5;
-                pictureBox.Height = pictureBox.Width;
-                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 int index = e.ProgressPercentage;
-                pictureBox.ImageLocation = worker.exprs[index].fullPath;
-                //pictureBox.Click += PictureBox_Click;
-                //pictureBox.MouseEnter += PictureBox_MouseEnter;
-                this.Controls.Add(pictureBox);
+                ExprDisplayer exprDisplayer = new ExprDisplayer(worker.exprs[index]);
+                exprDisplayer.Width = (this.Width - this.Margin.All * 2 - this.Padding.Right - 40) / 5;
+                exprDisplayer.Height = exprDisplayer.Width;
+                exprDisplayer.SizeMode = PictureBoxSizeMode.Zoom;
+                exprDisplayer.ImageLocation = FileUtility.FullPath(worker.exprs[index]);
+                exprDisplayer.MouseEnter += ExprDisplayer_MouseEnter;
+                this.Controls.Add(exprDisplayer);
             }
         }
 
-        // This is always in main thread, so we don't have lock it
+        private void ExprDisplayer_MouseEnter(object sender, System.EventArgs e)
+        {
+            ExprDisplayer exprDisplayer = sender as ExprDisplayer;
+            if (this.MouseOnExpr != null)
+            {
+                MouseOnExpr(this, exprDisplayer.expr);
+            }
+        }
+
         private void RemoteExprsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
         }
