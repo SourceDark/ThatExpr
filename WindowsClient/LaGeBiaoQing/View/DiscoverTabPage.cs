@@ -56,12 +56,12 @@ namespace LaGeBiaoQing.View
 
         private void TagContentComboBox_SelectNewest(object sender)
         {
-            exprsDisplayer.loadRemoteExprs("", SettingUtility.getIdString());
+            exprsDisplayer.loadRemoteExprs("", null);
         }
 
         private void TagContentComboBox_SelectTagContent(object sender, TagContent selectTagContent)
         {
-            exprsDisplayer.loadRemoteExprs(selectTagContent.content, SettingUtility.getIdString());
+            exprsDisplayer.loadRemoteExprs(selectTagContent.content, null);
         }
 
         private void ExprsDisplayer_MouseOnExpr(object sender, Expr expr)
