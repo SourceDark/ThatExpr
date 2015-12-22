@@ -41,7 +41,7 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
 
             worker.WorkerReportsProgress = true;
             worker.DoWork += RemoteExprsLoader_DoWork;
-            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.ProgressChanged += RemoteExprsLoader_ProgressChanged;
             worker.RunWorkerCompleted += RemoteExprsLoader_RunWorkerCompleted;
 
             worker.RunWorkerAsync();
@@ -65,7 +65,7 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
             }
         }
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void RemoteExprsLoader_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             RemoteExprsLoader worker = sender as RemoteExprsLoader;
             if (worker.id == requestId)
@@ -81,6 +81,26 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
             }
         }
 
+        private void RemoteExprsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+        }
+
+        public void loadRecentlyUsedExprs()
+        {
+            this.Controls.Clear();
+
+            List<Expr> exprs = SettingUtility.getRecentlyUsedExprs();
+            foreach (Expr expr in exprs) {
+                ExprDisplayer exprDisplayer = new ExprDisplayer(expr);
+                exprDisplayer.Width = (this.Width - this.Margin.All * 2 - this.Padding.Right - 40) / 5;
+                exprDisplayer.Height = exprDisplayer.Width;
+                exprDisplayer.SizeMode = PictureBoxSizeMode.Zoom;
+                exprDisplayer.ImageLocation = FileUtility.FullPath(expr);
+                exprDisplayer.MouseEnter += ExprDisplayer_MouseEnter;
+                this.Controls.Add(exprDisplayer);
+            }
+        }
+
         private void ExprDisplayer_MouseEnter(object sender, System.EventArgs e)
         {
             ExprDisplayer exprDisplayer = sender as ExprDisplayer;
@@ -90,13 +110,6 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
             }
         }
 
-        private void RemoteExprsLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-        }
 
-        public void loadRecentlyUsedExprs()
-        {
-
-        }
     }
 }

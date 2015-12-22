@@ -3,6 +3,7 @@ using LaGeBiaoQing.View.FlowLayoutPanels;
 using System.Windows.Forms;
 using LaGeBiaoQing.Model;
 using LaGeBiaoQing.Utility;
+using System;
 
 namespace LaGeBiaoQing.View.TabPages
 {
@@ -29,7 +30,7 @@ namespace LaGeBiaoQing.View.TabPages
             tagContentComboBox.Size = new System.Drawing.Size(121, 20);
             tagContentComboBox.TabIndex = 0;
             tagContentComboBox.SelectTagContent += TagContentComboBox_SelectTagContent;
-            //tagContentComboBox.SelectNewest += TagContentComboBox_SelectNewest;
+            tagContentComboBox.SelectRecentlyUsed += TagContentComboBox_SelectRecentlyUsed;
             this.Controls.Add(tagContentComboBox);
 
             exprsDisplayer = new ExprsDisplayer();
@@ -54,8 +55,15 @@ namespace LaGeBiaoQing.View.TabPages
             tagContentComboBox.loadTagContents();
         }
 
+        private void TagContentComboBox_SelectRecentlyUsed(object sender)
+        {
+            SettingUtility.exprsDisplayer = exprsDisplayer;
+            exprsDisplayer.loadRecentlyUsedExprs();
+        }
+
         private void TagContentComboBox_SelectTagContent(object sender, TagContent selectTagContent)
         {
+            SettingUtility.exprsDisplayer = null;
             exprsDisplayer.loadRemoteExprs(selectTagContent.content, SettingUtility.getIdString());
         }
 

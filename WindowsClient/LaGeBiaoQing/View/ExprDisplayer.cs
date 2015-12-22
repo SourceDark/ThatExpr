@@ -26,6 +26,8 @@ namespace LaGeBiaoQing.View.PictureBoxs
         private void ExprDisplayer_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
+
+            // Copy to clipboard
             string[] s = new string[1];
             s[0] = FileUtility.FullPath(expr);
             DataObject dataObject = new DataObject();
@@ -33,6 +35,7 @@ namespace LaGeBiaoQing.View.PictureBoxs
             dataObject.SetData(DataFormats.Bitmap, pictureBox.Image);
             Clipboard.SetDataObject(dataObject);
 
+            // Send "ctrl+v" to QQ window
             Process qqProcess = Process.GetProcessesByName("QQ").FirstOrDefault();
             if (qqProcess != null)
             {
@@ -43,6 +46,22 @@ namespace LaGeBiaoQing.View.PictureBoxs
             else
             {
                 Console.WriteLine("找不到QQ窗口");
+            }
+
+            // Update recently used exprs
+            List<Expr> recentlyUsedExprs = SettingUtility.getRecentlyUsedExprs();
+            for (int i = 0; i < recentlyUsedExprs.Count; i++)
+            {
+                if (recentlyUsedExprs[i].id == expr.id)
+                {
+                    recentlyUsedExprs.Remove(recentlyUsedExprs[i]);
+                }
+            }
+            recentlyUsedExprs.Insert(0, expr);
+            SettingUtility.setRecentlyUsedExprs(recentlyUsedExprs);
+            if (SettingUtility.exprsDisplayer != null)
+            {
+                SettingUtility.exprsDisplayer.loadRecentlyUsedExprs();
             }
         }
     }

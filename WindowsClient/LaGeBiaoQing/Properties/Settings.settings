@@ -11,5 +11,8 @@
     <Setting Name="ExprUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://115.28.224.94//expr</Value>
     </Setting>
+    <Setting Name="KeyRecentlyUsedExprs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[]</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

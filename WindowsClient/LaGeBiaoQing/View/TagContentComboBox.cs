@@ -11,6 +11,7 @@ namespace LaGeBiaoQing.View.ComboBoxes
 
     public delegate void SelectTagContentEventHandler(object sender, TagContent selectTagContent);
     public delegate void SelectNewestEventHandler(object sender);
+    public delegate void SelectRecentlyUsedEventHandler(object sender);
 
     class TagContentComboBox : ComboBox
     {
@@ -20,6 +21,7 @@ namespace LaGeBiaoQing.View.ComboBoxes
 
         public event SelectTagContentEventHandler SelectTagContent;
         public event SelectNewestEventHandler SelectNewest;
+        public event SelectRecentlyUsedEventHandler SelectRecentlyUsed;
 
         public TagContentComboBox(TagContentComboBoxType type)
         {
@@ -55,7 +57,10 @@ namespace LaGeBiaoQing.View.ComboBoxes
                 case TagContentComboBoxType.InCollectionTabPage:
                     if (SelectedIndex == 0)
                     {
-                        Console.WriteLine("最近使用未实现");
+                        if (this.SelectRecentlyUsed != null)
+                        {
+                            SelectRecentlyUsed(this);
+                        }
                     }
                     else 
                     {

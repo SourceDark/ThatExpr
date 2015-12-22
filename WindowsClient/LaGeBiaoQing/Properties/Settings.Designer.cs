@@ -52,5 +52,17 @@ namespace LaGeBiaoQing.Properties {
                 return ((string)(this["ExprUrl"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string KeyRecentlyUsedExprs {
+            get {
+                return ((string)(this["KeyRecentlyUsedExprs"]));
+            }
+            set {
+                this["KeyRecentlyUsedExprs"] = value;
+            }
+        }
     }
 }
