@@ -1,0 +1,32 @@
+# 后端无状态API
+
+## Tag
+
+### [get] /api/tags
+
+Parameters:
+	- [boolean] onlyMine: 筛选域：是否仅返回当前用户持有的标签
+
+Response:
+	- 符合筛选要求的标签列表
+	- <Sample> 
+	[
+		{
+			id: 1,
+			content: "",
+			amount: 10
+		},
+		{
+			id: 2,
+			content: "laugh",
+			amount: 5
+		}
+	]
+
+### [get] /api/collections
+
+Parameters:
+	- [Boolean] onlyMine: 筛选域：是否仅返回当前用户持有的收藏
+
+Response:
+	- 
