@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +29,12 @@ public class TagApiController {
 	private VisitRepository visitRepository;
 	
 	@RequestMapping(value = "api/{idString}/tags/my", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Integer> getMyTags(@PathVariable("idString") String idString) {
+	public @ResponseBody Map<String, Integer> getMyTags(@PathVariable("idString") String idString, HttpServletRequest request) {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
 		visit.setUserId(idString);
-		visit.setVisitUrl("api/{idString}/tags/my");
+		visit.setVisitUrl(request.getRequestURL().toString());
+		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 		
 		List<Tag> list = tagRepository.findAllByOwner(idString);
@@ -49,11 +52,12 @@ public class TagApiController {
 	}
 	
 	@RequestMapping(value = "api/{idString}/tags/all", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Integer> getAllTags(@PathVariable("idString") String idString) {
+	public @ResponseBody Map<String, Integer> getAllTags(@PathVariable("idString") String idString, HttpServletRequest request) {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
 		visit.setUserId(idString);
-		visit.setVisitUrl("api/{idString}/tags/all");
+		visit.setVisitUrl(request.getRequestURL().toString());
+		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 		
 		List<Tag> list = tagRepository.findAll();

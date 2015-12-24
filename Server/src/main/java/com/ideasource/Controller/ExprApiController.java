@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,11 +39,12 @@ public class ExprApiController {
 
 	@RequestMapping(value = "api/{idString}/exprs/all", method = RequestMethod.GET)
 	public @ResponseBody List<Expr> getAllExprsByTag(@PathVariable("idString") String idString,
-			@RequestParam(value = "tag") String content) {
+			@RequestParam(value = "tag") String content, HttpServletRequest request) {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
 		visit.setUserId(idString);
-		visit.setVisitUrl("api/{idString}/exprs/all");
+		visit.setVisitUrl(request.getRequestURL().toString());
+		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 		
 		List<Tag> tags = tagRepository.findAllByContent(content);
@@ -58,11 +61,12 @@ public class ExprApiController {
 	
 	@RequestMapping(value = "api/{idString}/exprs/my", method = RequestMethod.GET)
 	public @ResponseBody List<Expr> getMyExprsByTag(@PathVariable("idString") String idString,
-			@RequestParam(value = "tag") String content) {
+			@RequestParam(value = "tag") String content, HttpServletRequest request) {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
 		visit.setUserId(idString);
-		visit.setVisitUrl("api/{idString}/exprs/my");
+		visit.setVisitUrl(request.getRequestURL().toString());
+		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 			
 		List<Tag> tags = tagRepository.findAllByOwnerAndContent(idString, content);
@@ -78,12 +82,13 @@ public class ExprApiController {
 	}
 
 	@RequestMapping(value = "api/{idString}/expr/new", method = RequestMethod.POST)
-	public @ResponseBody Expr createExpr(@PathVariable("idString") String idString, @RequestParam("expr") MultipartFile exprFile, @RequestParam("tag") String content)
+	public @ResponseBody Expr createExpr(@PathVariable("idString") String idString, @RequestParam("expr") MultipartFile exprFile, @RequestParam("tag") String content, HttpServletRequest request)
 			throws IOException {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
 		visit.setUserId(idString);
-		visit.setVisitUrl("api/{idString}/expr/new");
+		visit.setVisitUrl(request.getRequestURL().toString());
+		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 		
 		String md5 = StringUtil.MD5(exprFile.getBytes());

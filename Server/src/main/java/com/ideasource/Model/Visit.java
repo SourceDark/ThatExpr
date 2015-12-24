@@ -19,6 +19,8 @@ public class Visit {
 	private String visitUrl;
 	
 	private Date created;
+	
+	private String clientIp;
 
 	public Long getId() {
 		return id;
@@ -50,6 +52,14 @@ public class Visit {
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public String getClientIp() {
+		return clientIp;
+	}
+
+	public void setClientIp(String clientIp) {
+		this.clientIp = clientIp;
 	} 
 	
 }
