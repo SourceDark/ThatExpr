@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using LaGeBiaoQing.Service;
-using LaGeBiaoQing.Model;
-using LaGeBiaoQing.View.ComboBoxes;
+﻿using System.Windows.Forms;
 using LaGeBiaoQing.View.TabPages;
-using LaGeBiaoQing.View.PictureBoxs;
-using LaGeBiaoQing.Utility;
 using LaGeBiaoQing.View;
+using LaGeBiaoQing.View.Settings;
 
 namespace LaGeBiaoQing
 {
@@ -27,6 +20,7 @@ namespace LaGeBiaoQing
         {
             tabControl1.Controls.Add(new CollectionTagPage());
             tabControl1.Controls.Add(new DiscoverTabPage());
+            tabControl1.Controls.Add(new SettingsTabPage());
         }
     }
 }

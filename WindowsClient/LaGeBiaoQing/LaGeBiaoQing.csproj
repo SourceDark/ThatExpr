@@ -111,6 +111,9 @@
     <Compile Include="View\ExprPreviewer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\Settings\SettingsTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\TagContentComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
