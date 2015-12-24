@@ -4,29 +4,43 @@
 
 ### [get] /api/tags
 
-Parameters:
-	- [boolean] onlyMine: 筛选域：是否仅返回当前用户持有的标签
+	Parameters:
+		- [boolean]onlyMine: [Filter]是否仅返回当前用户持有的标签
 
-Response:
-	- 符合筛选要求的标签列表
-	- <Sample> 
-	[
-		{
-			id: 1,
-			content: "",
-			amount: 10
-		},
-		{
-			id: 2,
-			content: "laugh",
-			amount: 5
-		}
-	]
+	Response:
+		- 符合筛选要求的标签列表
+		- <Sample>:
+		[
+			<Tag Model 1>,
+			<Tag Model 2>
+		]
 
-### [get] /api/collections
+### [get] /api/tags/{tagId}
 
-Parameters:
-	- [Boolean] onlyMine: 筛选域：是否仅返回当前用户持有的收藏
+	Parameters:
+		- [long]tagId: [Filter]tag的id
 
-Response:
-	- 
+	Response:
+		- 符合筛选要求的标签对象
+		- <Sample>:
+		<Tag Model>
+
+### [get] /api/tags/{tagContent}
+
+	Parameters
+		- [string]tagContent: [Filter]tag的content域
+
+	Response:
+		- 符合筛选要求的标签对象
+		- <Sample>:
+		<Tag Model>
+
+## Collection
+
+	### [get] /api/collections
+
+	Parameters:
+		- [Boolean] onlyMine: 筛选域：是否仅返回当前用户持有的收藏
+
+	Response:
+		- 

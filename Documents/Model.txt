@@ -1,3 +1,16 @@
 # 全局通用Model
 
 ## Tag
+
+### 核心信息
+
+- id
+- content
+- creator
+- createdTime
+- updatedTime
+
+### 拓展信息
+
+- totalAmount: 所有用户中的使用次数
+- myAmount: 当前用户的使用次数
