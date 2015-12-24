@@ -1,6 +1,7 @@
 package com.ideasource.Controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import com.ideasource.Model.Expr;
 import com.ideasource.Model.ExprRepository;
 import com.ideasource.Model.Tag;
 import com.ideasource.Model.TagRepository;
+import com.ideasource.Model.Visit;
+import com.ideasource.Model.VisitRepository;
 import com.ideasource.Util.FileUtil;
 import com.ideasource.Util.StringUtil;
 
@@ -28,10 +31,19 @@ public class ExprApiController {
 
 	@Autowired
 	private TagRepository tagRepository;
+	
+	@Autowired
+	private VisitRepository visitRepository;
 
 	@RequestMapping(value = "api/{idString}/exprs/all", method = RequestMethod.GET)
 	public @ResponseBody List<Expr> getAllExprsByTag(@PathVariable("idString") String idString,
 			@RequestParam(value = "tag") String content) {
+		Visit visit = new Visit();
+		visit.setCreated(new Date());
+		visit.setUserId(idString);
+		visit.setVisitUrl("api/{idString}/exprs/all");
+		visitRepository.save(visit);
+		
 		List<Tag> tags = tagRepository.findAllByContent(content);
 		List<Long> exprIds = new ArrayList<Long>();
 		for (Tag tag : tags) {
@@ -47,6 +59,12 @@ public class ExprApiController {
 	@RequestMapping(value = "api/{idString}/exprs/my", method = RequestMethod.GET)
 	public @ResponseBody List<Expr> getMyExprsByTag(@PathVariable("idString") String idString,
 			@RequestParam(value = "tag") String content) {
+		Visit visit = new Visit();
+		visit.setCreated(new Date());
+		visit.setUserId(idString);
+		visit.setVisitUrl("api/{idString}/exprs/my");
+		visitRepository.save(visit);
+			
 		List<Tag> tags = tagRepository.findAllByOwnerAndContent(idString, content);
 		List<Long> exprIds = new ArrayList<Long>();
 		for (Tag tag : tags) {
@@ -62,6 +80,12 @@ public class ExprApiController {
 	@RequestMapping(value = "api/{idString}/expr/new", method = RequestMethod.POST)
 	public @ResponseBody Expr createExpr(@PathVariable("idString") String idString, @RequestParam("expr") MultipartFile exprFile, @RequestParam("tag") String content)
 			throws IOException {
+		Visit visit = new Visit();
+		visit.setCreated(new Date());
+		visit.setUserId(idString);
+		visit.setVisitUrl("api/{idString}/expr/new");
+		visitRepository.save(visit);
+		
 		String md5 = StringUtil.MD5(exprFile.getBytes());
 		List<Expr> exprs = exprRepository.findAllByMd5(md5);
 		if (exprs.isEmpty()) {
