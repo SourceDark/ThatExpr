@@ -15,6 +15,7 @@ namespace LaGeBiaoQing.Utility
         public static ExprsDisplayer exprsDisplayer;
 
         private static string KeyRecentlyUsedExprs = "KeyRecentlyUsedExprs";
+        private static string KeyIsMainFormTopMost = "KeyIsMainFormTopMost";
 
         public static string getIdString()
         {
@@ -33,5 +34,16 @@ namespace LaGeBiaoQing.Utility
             Properties.Settings.Default[KeyRecentlyUsedExprs] = jsonString;
             Properties.Settings.Default.Save();
         }
+
+        public static bool getIsMainFormTopMost() {
+            return (bool) Properties.Settings.Default[KeyIsMainFormTopMost];
+        }
+
+        public static void setIsMainFormTopMost(bool isMainFormTopMost)
+        {
+            Properties.Settings.Default[KeyIsMainFormTopMost] = isMainFormTopMost;
+            Properties.Settings.Default.Save();
+        }
+     
     }
 }

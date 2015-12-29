@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaGeBiaoQing.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,6 @@ namespace LaGeBiaoQing.View.Settings
 
             topMostSettingTitle = new Label();
             topMostSettingTitle.Location = new System.Drawing.Point(15, 26);
-            //topMostSettingTitle.Size = new System.Drawing.Size(100, 20);
             topMostSettingTitle.AutoSize = true;
             topMostSettingTitle.Text = "窗体保持置顶";
             topMostSettingPanel.Controls.Add(topMostSettingTitle);
@@ -47,16 +47,30 @@ namespace LaGeBiaoQing.View.Settings
             topMostSettingTrue = new RadioButton();
             topMostSettingTrue.Location = new System.Drawing.Point(160, 25);
             topMostSettingTrue.Text = "是";
-            //topMostSettingTrue.Size = new System.Drawing.Size(40, 20);
+            topMostSettingTrue.Click += TopMostSettingTrue_Click;
+            topMostSettingTrue.Checked = SettingUtility.getIsMainFormTopMost();
             topMostSettingPanel.Controls.Add(topMostSettingTrue);
             topMostSettingTrue.AutoSize = true;
 
             topMostSettingFalse = new RadioButton();
             topMostSettingFalse.Location = new System.Drawing.Point(220, 25);
             topMostSettingFalse.Text = "否";
-            //topMostSettingFalse.Size = new System.Drawing.Size(80, 20);
+            topMostSettingFalse.Click += TopMostSettingFalse_Click;
+            topMostSettingFalse.Checked = !SettingUtility.getIsMainFormTopMost();
             topMostSettingPanel.Controls.Add(topMostSettingFalse);
             topMostSettingFalse.AutoSize = true;
+        }
+
+        private void TopMostSettingTrue_Click(object sender, EventArgs e)
+        {
+            this.FindForm().TopMost = true;
+            SettingUtility.setIsMainFormTopMost(true);
+        }
+
+        private void TopMostSettingFalse_Click(object sender, EventArgs e)
+        {
+            this.FindForm().TopMost = false;
+            SettingUtility.setIsMainFormTopMost(false);
         }
     }
 }

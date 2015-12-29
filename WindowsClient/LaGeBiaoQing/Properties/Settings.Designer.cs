@@ -64,5 +64,17 @@ namespace LaGeBiaoQing.Properties {
                 this["KeyRecentlyUsedExprs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeyIsMainFormTopMost {
+            get {
+                return ((bool)(this["KeyIsMainFormTopMost"]));
+            }
+            set {
+                this["KeyIsMainFormTopMost"] = value;
+            }
+        }
     }
 }
