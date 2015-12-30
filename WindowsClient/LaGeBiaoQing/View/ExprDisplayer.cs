@@ -17,6 +17,16 @@ namespace LaGeBiaoQing.View.PictureBoxs
         public ExprDisplayer(Expr expr)
         {
             this.expr = expr;
+            ContextMenu cm = new ContextMenu();
+            cm.MenuItems.Add("发送至QQ窗口");
+            cm.MenuItems.Add("发送至YY窗口");
+            cm.MenuItems.Add("-");
+
+            MenuItem addTagMenuItem = new MenuItem("收藏至");
+            addTagMenuItem.MenuItems.Add("默认");
+            cm.MenuItems.Add(addTagMenuItem);
+
+            this.ContextMenu = cm;
             this.Click += ExprDisplayer_Click;
         }
 
@@ -26,42 +36,45 @@ namespace LaGeBiaoQing.View.PictureBoxs
         private void ExprDisplayer_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
-
-            // Copy to clipboard
-            string[] s = new string[1];
-            s[0] = FileUtility.FullPath(expr);
-            DataObject dataObject = new DataObject();
-            dataObject.SetData(DataFormats.FileDrop, s);
-            dataObject.SetData(DataFormats.Bitmap, pictureBox.Image);
-            Clipboard.SetDataObject(dataObject);
-
-            // Send "ctrl+v" to QQ window
-            Process qqProcess = Process.GetProcessesByName("QQ").FirstOrDefault();
-            if (qqProcess != null)
+            MouseEventArgs me = e as MouseEventArgs;
+            if (me.Button == MouseButtons.Left)
             {
-                IntPtr qqHandle = qqProcess.MainWindowHandle;
-                SetForegroundWindow(qqHandle);
-                SendKeys.SendWait("^V");
-            }
-            else
-            {
-                Console.WriteLine("找不到QQ窗口");
-            }
+                // Copy to clipboard
+                string[] s = new string[1];
+                s[0] = FileUtility.FullPath(expr);
+                DataObject dataObject = new DataObject();
+                dataObject.SetData(DataFormats.FileDrop, s);
+                dataObject.SetData(DataFormats.Bitmap, pictureBox.Image);
+                Clipboard.SetDataObject(dataObject);
 
-            // Update recently used exprs
-            List<Expr> recentlyUsedExprs = SettingUtility.getRecentlyUsedExprs();
-            for (int i = 0; i < recentlyUsedExprs.Count; i++)
-            {
-                if (recentlyUsedExprs[i].id == expr.id)
+                // Send "ctrl+v" to QQ window
+                Process qqProcess = Process.GetProcessesByName("QQ").FirstOrDefault();
+                if (qqProcess != null)
                 {
-                    recentlyUsedExprs.Remove(recentlyUsedExprs[i]);
+                    IntPtr qqHandle = qqProcess.MainWindowHandle;
+                    SetForegroundWindow(qqHandle);
+                    SendKeys.SendWait("^V");
                 }
-            }
-            recentlyUsedExprs.Insert(0, expr);
-            SettingUtility.setRecentlyUsedExprs(recentlyUsedExprs);
-            if (SettingUtility.exprsDisplayer != null)
-            {
-                SettingUtility.exprsDisplayer.loadRecentlyUsedExprs();
+                else
+                {
+                    Console.WriteLine("找不到QQ窗口");
+                }
+
+                // Update recently used exprs
+                List<Expr> recentlyUsedExprs = SettingUtility.getRecentlyUsedExprs();
+                for (int i = 0; i < recentlyUsedExprs.Count; i++)
+                {
+                    if (recentlyUsedExprs[i].id == expr.id)
+                    {
+                        recentlyUsedExprs.Remove(recentlyUsedExprs[i]);
+                    }
+                }
+                recentlyUsedExprs.Insert(0, expr);
+                SettingUtility.setRecentlyUsedExprs(recentlyUsedExprs);
+                if (SettingUtility.exprsDisplayer != null)
+                {
+                    SettingUtility.exprsDisplayer.loadRecentlyUsedExprs();
+                }
             }
         }
     }
