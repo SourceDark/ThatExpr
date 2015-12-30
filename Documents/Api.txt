@@ -2,7 +2,7 @@
 
 ## Tag
 
-### [get] /api/tags
+### [get] /api/s/{idString}/tags
 
 	Parameters:
 		- [boolean]onlyMine: [Filter]是否仅返回当前用户持有的标签
@@ -15,7 +15,7 @@
 			<Tag Model 2>
 		]
 
-### [get] /api/tags/{tagId}
+### [get] /api/s/{idString}/tags/{tagId}
 
 	Parameters:
 		- [long]tagId: [Filter]tag的id
@@ -25,7 +25,7 @@
 		- <Sample>:
 		<Tag Model>
 
-### [get] /api/tags/{tagContent}
+### [get] /api/s/{idString}/tags/{tagContent}
 
 	Parameters
 		- [string]tagContent: [Filter]tag的content域
@@ -37,10 +37,16 @@
 
 ## Collection
 
-	### [get] /api/collections
+	### [get] /api/s/{idString}/collections
 
 	Parameters:
 		- [Boolean] onlyMine: 筛选域：是否仅返回当前用户持有的收藏
 
 	Response:
 		- 
+
+	### [post] /api/s/{idString}/collections
+
+	Parameters:
+		- [long]expr_id: 收藏表情的ID
+		- [string]content：收藏的标签名称

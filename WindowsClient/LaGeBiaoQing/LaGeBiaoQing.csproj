@@ -105,6 +105,7 @@
     <Compile Include="Utility\FileUtility.cs" />
     <Compile Include="Utility\NetworkUtility.cs" />
     <Compile Include="Utility\SettingUtility.cs" />
+    <Compile Include="Utility\WindowsUtility.cs" />
     <Compile Include="View\DiscoverTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
