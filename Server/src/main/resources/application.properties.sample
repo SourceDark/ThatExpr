@@ -18,3 +18,4 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 
 # path to save expr
 lcbq.expr.path=D:/expr/
+lcbq.zip.path=D:/zip/
