@@ -4,10 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Tag {
-	
+@Table(name="tag")
+public class Collection {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,7 +18,17 @@ public class Tag {
 	private String owner;
 	
 	private String content;
+
+	public Collection() {
+	}
 	
+	public Collection(Collection collection) {
+		this.id = collection.id;
+		this.exprId = collection.exprId;
+		this.owner = collection.owner;
+		this.content = collection.content;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -49,5 +60,4 @@ public class Tag {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-
 }

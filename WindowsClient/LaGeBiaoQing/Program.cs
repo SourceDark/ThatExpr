@@ -16,7 +16,7 @@ namespace LaGeBiaoQing
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             if (Properties.Settings.Default["IdString"] != null && Properties.Settings.Default["IdString"].ToString().Length > 0)
             {
                 Application.Run(new Main());

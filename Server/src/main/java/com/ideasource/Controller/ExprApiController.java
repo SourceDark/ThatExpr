@@ -1,8 +1,8 @@
 package com.ideasource.Controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ideasource.Model.Collection;
+import com.ideasource.Model.CollectionRepository;
 import com.ideasource.Model.Expr;
 import com.ideasource.Model.ExprRepository;
-import com.ideasource.Model.Tag;
-import com.ideasource.Model.TagRepository;
 import com.ideasource.Model.Visit;
 import com.ideasource.Model.VisitRepository;
 import com.ideasource.Util.FileUtil;
@@ -32,13 +32,13 @@ public class ExprApiController {
 	private ExprRepository exprRepository;
 
 	@Autowired
-	private TagRepository tagRepository;
+	private CollectionRepository collectionRepository;
 	
 	@Autowired
 	private VisitRepository visitRepository;
 
 	@RequestMapping(value = "api/{idString}/exprs/all", method = RequestMethod.GET)
-	public @ResponseBody List<Expr> getAllExprsByTag(@PathVariable("idString") String idString,
+	public @ResponseBody List<Expr> getAllExprsBycollection(@PathVariable("idString") String idString,
 			@RequestParam(value = "tag") String content, HttpServletRequest request) {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
@@ -47,10 +47,10 @@ public class ExprApiController {
 		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 		
-		List<Tag> tags = tagRepository.findAllByContent(content);
+		List<Collection> collections = collectionRepository.findAllByContent(content);
 		List<Long> exprIds = new ArrayList<Long>();
-		for (Tag tag : tags) {
-			exprIds.add(tag.getExprId());
+		for (Collection collection : collections) {
+			exprIds.add(collection.getExprId());
 		}
 		List<Expr> exprs = exprRepository.findAllByIdIn(exprIds);
 		for (Expr expr : exprs) {
@@ -60,7 +60,7 @@ public class ExprApiController {
 	}
 	
 	@RequestMapping(value = "api/{idString}/exprs/my", method = RequestMethod.GET)
-	public @ResponseBody List<Expr> getMyExprsByTag(@PathVariable("idString") String idString,
+	public @ResponseBody List<Expr> getMyExprsBycollection(@PathVariable("idString") String idString,
 			@RequestParam(value = "tag") String content, HttpServletRequest request) {
 		Visit visit = new Visit();
 		visit.setCreated(new Date());
@@ -69,10 +69,10 @@ public class ExprApiController {
 		visit.setClientIp(request.getRemoteAddr());
 		visitRepository.save(visit);
 			
-		List<Tag> tags = tagRepository.findAllByOwnerAndContent(idString, content);
+		List<Collection> collections = collectionRepository.findAllByOwnerAndContent(idString, content);
 		List<Long> exprIds = new ArrayList<Long>();
-		for (Tag tag : tags) {
-			exprIds.add(tag.getExprId());
+		for (Collection collection : collections) {
+			exprIds.add(collection.getExprId());
 		}
 		List<Expr> exprs = exprRepository.findAllByIdIn(exprIds);
 		for (Expr expr : exprs) {
@@ -101,17 +101,17 @@ public class ExprApiController {
 				expr.setCreator(idString);
 				expr.setExtension(extension);
 				exprRepository.save(expr);
-				Tag tag = new Tag();
-				tag.setExprId(expr.getId());
-				tag.setOwner(idString);
-				tag.setContent("");
-				tagRepository.save(tag);
+				Collection collection = new Collection();
+				collection.setExprId(expr.getId());
+				collection.setOwner(idString);
+				collection.setContent("");
+				collectionRepository.save(collection);
 				if (content.length() > 0) {
-					tag = new Tag();
-					tag.setExprId(expr.getId());
-					tag.setOwner(idString);
-					tag.setContent(content);
-					tagRepository.save(tag);
+					collection = new Collection();
+					collection.setExprId(expr.getId());
+					collection.setOwner(idString);
+					collection.setContent(content);
+					collectionRepository.save(collection);
 				}
 				return expr.eraseDangerousInfo();
 			}
@@ -120,21 +120,21 @@ public class ExprApiController {
 			}
 		}
 		else {
-			List<Tag> tags = tagRepository.findAllByOwnerAndContentAndExprId(idString, "", exprs.get(0).getId());
-			if (tags.isEmpty()) {
-				Tag tag = new Tag();
-				tag.setExprId(exprs.get(0).getId());
-				tag.setOwner(idString);
-				tag.setContent("");
-				tagRepository.save(tag);
+			List<Collection> collections = collectionRepository.findAllByOwnerAndContentAndExprId(idString, "", exprs.get(0).getId());
+			if (collections.isEmpty()) {
+				Collection collection = new Collection();
+				collection.setExprId(exprs.get(0).getId());
+				collection.setOwner(idString);
+				collection.setContent("");
+				collectionRepository.save(collection);
 			}
-			tags = tagRepository.findAllByOwnerAndContentAndExprId(idString, content, exprs.get(0).getId());
-			if (tags.isEmpty()) {
-				Tag tag = new Tag();
-				tag.setExprId(exprs.get(0).getId());
-				tag.setOwner(idString);
-				tag.setContent(content);
-				tagRepository.save(tag);
+			collections = collectionRepository.findAllByOwnerAndContentAndExprId(idString, content, exprs.get(0).getId());
+			if (collections.isEmpty()) {
+				Collection collection = new Collection();
+				collection.setExprId(exprs.get(0).getId());
+				collection.setOwner(idString);
+				collection.setContent(content);
+				collectionRepository.save(collection);
 			}
 			return exprs.get(0).eraseDangerousInfo();
 		}

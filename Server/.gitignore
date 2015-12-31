@@ -1,6 +1,7 @@
 .settings/
 .idea/
 .project
+bin/
 target/
 .classpath
 src/main/resources/static/image/expr/

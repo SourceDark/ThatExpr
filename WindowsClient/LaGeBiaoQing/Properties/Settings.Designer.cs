@@ -76,5 +76,17 @@ namespace LaGeBiaoQing.Properties {
                 this["KeyIsMainFormTopMost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string KeyUsedTags {
+            get {
+                return ((string)(this["KeyUsedTags"]));
+            }
+            set {
+                this["KeyUsedTags"] = value;
+            }
+        }
     }
 }
