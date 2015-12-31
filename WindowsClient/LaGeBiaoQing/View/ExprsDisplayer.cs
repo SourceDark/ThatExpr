@@ -50,13 +50,15 @@ namespace LaGeBiaoQing.View.FlowLayoutPanels
         private void RemoteExprsLoader_DoWork(object sender, DoWorkEventArgs e)
         {
             RemoteExprsLoader worker = sender as RemoteExprsLoader;
-            if (worker.idString == null)
+
+            List<Collection> collections = CollectionService.GetCollectionByContent(worker.idString != null, worker.tagContent);
+            worker.exprs = new List<Expr>();
+            foreach (Collection collection in collections)
             {
-                worker.exprs = ExprService.GetAllExprsByTagContent(worker.tagContent);
-            }
-            else
-            {
-                worker.exprs = ExprService.GetMyExprsByTagContent(worker.tagContent);
+                Expr expr = collection.expr;
+                collection.expr = null;
+                expr.collection = collection;
+                worker.exprs.Add(expr);
             }
             for (int i = 0; i < worker.exprs.Count; i++)
             {

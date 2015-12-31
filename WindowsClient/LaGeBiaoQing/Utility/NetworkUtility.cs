@@ -51,5 +51,16 @@ namespace LaGeBiaoQing.Utility
                 return response.Content.ReadAsStringAsync().Result;
             }
         }
+
+        public static string GetAsync(string uri)
+        {
+            string requestUrl = Properties.Settings.Default["ApiUrl"] + "/" + Properties.Settings.Default["IdString"] + "/" + uri;
+            Console.Out.WriteLine(requestUrl);
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync(requestUrl).Result;
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
     }
 }

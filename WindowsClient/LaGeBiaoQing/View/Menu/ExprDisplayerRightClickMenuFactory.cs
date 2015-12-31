@@ -67,7 +67,7 @@ namespace LaGeBiaoQing.View.Menu
             MenuItem menuItem = sender as MenuItem;
             ContextMenu contextMenu = menuItem.GetContextMenu() as ContextMenu;
             ExprDisplayer exprDisplayer = contextMenu.SourceControl as ExprDisplayer;
-            CollectionService.createCollection("", exprDisplayer.expr.id);
+            CollectionService.CreateCollection("", exprDisplayer.expr.id);
         }
 
         private static void tryCollect(object sender, EventArgs e)
@@ -76,7 +76,7 @@ namespace LaGeBiaoQing.View.Menu
             ContextMenu cms = infoExtendedMenuItem.GetContextMenu() as ContextMenu;
             ExprDisplayer exprDisplayer = cms.SourceControl as ExprDisplayer;
             TagContent tagContent = infoExtendedMenuItem.info as TagContent;
-            CollectionService.createCollection(tagContent.content, exprDisplayer.expr.id);
+            CollectionService.CreateCollection(tagContent.content, exprDisplayer.expr.id);
         }
 
         private static void tryRemove(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace LaGeBiaoQing.View.Menu
             MenuItem menuItem = sender as MenuItem;
             ContextMenu contextMenu = menuItem.GetContextMenu() as ContextMenu;
             ExprDisplayer exprDisplayer = contextMenu.SourceControl as ExprDisplayer;
-            CollectionService.removeCollection(exprDisplayer.expr.id);
+            CollectionService.RemoveCollection(exprDisplayer.expr.collection.id);
         }
 
 
