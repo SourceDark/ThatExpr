@@ -109,7 +109,7 @@ public class CollectionApiController {
 	}
 	
 	@RequestMapping(value = "api/{idString}/collections", method = RequestMethod.GET)
-	public @ResponseBody List<CollectionDTO> getCollections(@PathVariable("idString") String idString, @PathVariable("onlyMine") Boolean onlyMine, @PathVariable("content") String content, HttpServletRequest request) {
+	public @ResponseBody List<CollectionDTO> getCollections(@PathVariable("idString") String idString, @RequestParam("onlyMine") Boolean onlyMine, @RequestParam("content") String content, HttpServletRequest request) {
 		List<Collection> collections;
 		if (onlyMine) {
 			collections = collectionRepository.findAllByOwnerAndContent(idString, content);
@@ -131,7 +131,7 @@ public class CollectionApiController {
 		for (Collection collection : collections) {
 			CollectionDTO collectionDTO = new CollectionDTO(collection);
 			collectionDTO.setExpr(exprsMap.get(collection.getExprId()));;
-			collectionDTOs.add(new CollectionDTO(collection));
+			collectionDTOs.add(collectionDTO);
 		}
 		return collectionDTOs;
 	}
