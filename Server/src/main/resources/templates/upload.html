@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="/css/upload.css"></link>
 	<script src="/js/common/common.js"></script>
 	<script src="/js/upload.js"></script>
+    <script src="/js/lib/jquery-1.11.3.js"></script>
+    <script src="/js/lib/ajaxfileupload.js"></script>
 </head>
 
 <body>
@@ -38,6 +40,17 @@
 					</div>
 					<div class="panel-body">
 						<p>还没做!</p>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">方法四：在资源管理器中选择你想要上传的zip</h3>
+					</div>
+					<div class="panel-body">
+						<input type="file" id="btnFile" name="btnFile" onchange="zipName.value=this.value;" style="display:none" hidden="hidden" />  
+						<input type="text" id="zipName" readonly="readonly" style="width: 300px" />           
+						<button onclick="btnFile.click()" style="height: 25px;">选择文件</button>        
+						<button onclick="uploadZip()" style="height: 25px;">上传文件</button> 
 					</div>
 				</div>
 			</div>

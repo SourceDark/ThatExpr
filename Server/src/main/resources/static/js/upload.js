@@ -98,3 +98,30 @@ function uploadButtonOnClick(url) {
 
     xhr.send(form);
 }
+
+function uploadZip() {
+	var filename = $('#zipName').val();
+	if (filename.length < 1) {
+		alert('no file');
+		return ;
+	}
+	$.ajaxFileUpload({
+		url : '/api/123/uploadZip',
+		secureuri : false,//安全协议
+		fileElementId:'btnFile',//id
+		type : 'POST',
+		dataType : 'json',
+		data: null,
+		async : false,
+		error : function(data,status,e) {
+			alert('文件已上传');
+		},
+		success : function(json) {
+			if (json.resultFlag==false){
+				alert(json.resultMessage);
+			}else{
+				alert('文件上传成功!');
+			}
+		}
+	});
+}
