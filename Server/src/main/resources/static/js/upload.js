@@ -125,3 +125,46 @@ function uploadZip() {
 		}
 	});
 }
+
+window.onload=function() {
+	function paste_img(e) {
+		if ( e.clipboardData.items ) {
+		// google-chrome 
+			//alert('support clipboardData.items(chrome ...)');
+			ele = e.clipboardData.items
+			for (var i = 0; i < ele.length; ++i) {
+				if ( ele[i].kind == 'file' && ele[i].type.indexOf('image/') !== -1 ) {
+					var blob = ele[i].getAsFile();
+					window.URL = window.URL || window.webkitURL;
+					var blobUrl = window.URL.createObjectURL(blob);
+					console.log(blobUrl);
+
+					var new_img= document.createElement('img');
+					new_img.setAttribute('src', blobUrl);
+					//var new_img_intro = document.createElement('p');
+					//new_img_intro.innerHTML = 'the pasted img url(open it in new tab): <br /><a target="_blank" href="' + blobUrl + '">' + blobUrl + '</a>';
+					
+					//var reader = new FileReader();
+					 
+					var display = document.getElementById('display');
+					var list   = document.getElementById('list');
+					var img = document.createElement("img"); 
+			        img.file = blob;   
+			        img.src = blobUrl;
+			        currentFile = blob;
+			        
+			        list.appendChild(img);
+			        display.innerHTML = "";
+			        display.appendChild(img);
+			        
+					//document.getElementById('pasteBoard').appendChild(new_img);
+					//document.getElementById('pasteBoard').appendChild(new_img_intro);
+				}
+
+			}
+		} else {
+			alert('non-chrome');
+		}
+	}
+	document.getElementById('pasteBoard').onpaste=function(){paste_img(event);return false;};
+}
