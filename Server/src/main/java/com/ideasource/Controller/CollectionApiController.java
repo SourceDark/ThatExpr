@@ -75,7 +75,34 @@ public class CollectionApiController {
 		response.put("status", 1);
 		response.put("reason", null);
 		response.put("response", tag);
-		System.err.println(response.toString());
+		return response;
+	}
+	
+	@RequestMapping(value = "api/{idString}/collections/{collectionId}", method = RequestMethod.DELETE)
+	public @ResponseBody Map<String, Object> removeCollection(@PathVariable("idString") String idString, @PathVariable("collectionId") Long collectionId, HttpServletRequest request)
+			throws IOException {
+
+		Visit visit = new Visit();
+		visit.setCreated(new Date());
+		visit.setUserId(idString);
+		visit.setVisitUrl(request.getRequestURL().toString());
+		visit.setClientIp(request.getRemoteAddr());
+		visitRepository.save(visit);
+		
+		Tag tag = tagRepository.findOne(collectionId);
+		if (tag == null || !tag.getOwner().equals(idString)) {
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("status", 0);
+			response.put("reason", "该收藏不存在");
+			response.put("response", null);
+			return response;
+		}
+		
+		tagRepository.delete(tag);
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("status", 1);
+		response.put("reason", null);
+		response.put("response", null);
 		return response;
 	}
 }
