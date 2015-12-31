@@ -1,5 +1,6 @@
 ﻿using LaGeBiaoQing.Model;
 using LaGeBiaoQing.Utility;
+using LaGeBiaoQing.View.Menu;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace LaGeBiaoQing.View.PictureBoxs
         public ExprDisplayer(Expr expr)
         {
             this.expr = expr;
+            /*
             ContextMenu cm = new ContextMenu();
             cm.MenuItems.Add("发送至QQ窗口");
             cm.MenuItems.Add("发送至微信窗口");
@@ -24,23 +26,14 @@ namespace LaGeBiaoQing.View.PictureBoxs
             cm.MenuItems[0].Click += ExprDisplayer_SendToQQ;
             cm.MenuItems[1].Click += ExprDisplayer_SendToWeChat;
 
-
-            MenuItem addTagMenuItem = new MenuItem("收藏至");
+            
+            List<TagContent> tagContents = SettingUtility.getUsedTags();
+            Console.Out.WriteLine(tagContents);
             addTagMenuItem.MenuItems.Add("默认");
-            cm.MenuItems.Add(addTagMenuItem);
+            cm.MenuItems.Add(addTagMenuItem);*/
 
-            this.ContextMenu = cm;
+            this.ContextMenu = ExprDisplayerRightClickMenuFactory.getInstance();
             this.Click += ExprDisplayer_Click;
-        }
-
-        private void ExprDisplayer_SendToQQ(object sender, EventArgs e)
-        {
-            WindowsUtility.sendTo(expr, Image, WindowType.WindowTypeQQ);
-        }
-
-        private void ExprDisplayer_SendToWeChat(object sender, EventArgs e)
-        {
-            WindowsUtility.sendTo(expr, Image, WindowType.WindowTypeWeChat);
         }
 
         private void ExprDisplayer_Click(object sender, EventArgs e)

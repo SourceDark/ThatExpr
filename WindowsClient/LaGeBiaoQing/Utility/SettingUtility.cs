@@ -16,6 +16,7 @@ namespace LaGeBiaoQing.Utility
 
         private static string KeyRecentlyUsedExprs = "KeyRecentlyUsedExprs";
         private static string KeyIsMainFormTopMost = "KeyIsMainFormTopMost";
+        private static string KeyUsedTags = "KeyUsedTags";
 
         public static string getIdString()
         {
@@ -44,6 +45,19 @@ namespace LaGeBiaoQing.Utility
             Properties.Settings.Default[KeyIsMainFormTopMost] = isMainFormTopMost;
             Properties.Settings.Default.Save();
         }
-     
+
+        public static List<TagContent> getUsedTags()
+        {
+            string jsonString = Properties.Settings.Default[KeyUsedTags] as string;
+            return JsonConvert.DeserializeObject<List<TagContent>>(jsonString);
+        }
+
+        public static void setUsedTags(List<TagContent> usedTags)
+        {
+            string jsonString = JsonConvert.SerializeObject(usedTags);
+            Properties.Settings.Default[KeyUsedTags] = jsonString;
+            Properties.Settings.Default.Save();
+        }
+
     }
 }

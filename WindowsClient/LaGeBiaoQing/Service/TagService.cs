@@ -37,6 +37,7 @@ namespace LaGeBiaoQing.Service
                 tagContents.Add(tagContent);
             }
             tagContents.Sort(delegate (TagContent a, TagContent b) { return b.useAmount.CompareTo(a.useAmount); });
+            SettingUtility.setUsedTags(tagContents);
             return tagContents;
         }
     }

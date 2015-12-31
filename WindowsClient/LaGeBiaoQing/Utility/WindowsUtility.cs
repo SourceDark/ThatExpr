@@ -32,7 +32,7 @@ namespace LaGeBiaoQing.Utility
                 }
                 else
                 {
-                    MessageBox.Show("Error Message", "Error Title", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("找不到QQ窗口", "发送失败", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             else if (windowType == WindowType.WindowTypeWeChat)
@@ -47,7 +47,7 @@ namespace LaGeBiaoQing.Utility
                 }
                 else
                 {
-                    MessageBox.Show("Error Message", "Error Title", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("找不到微信窗口", "发送失败", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
 

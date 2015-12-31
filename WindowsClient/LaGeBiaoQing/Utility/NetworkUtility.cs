@@ -1,7 +1,9 @@
 ﻿using LaGeBiaoQing.Model;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 
 namespace LaGeBiaoQing.Utility
 {
@@ -27,6 +29,17 @@ namespace LaGeBiaoQing.Utility
             reader.Close();
             response.Close();
             return responseFromServer;
+        }
+
+        public static String PostAsync(String uri, Dictionary<String, String> parameters)
+        {
+            String requestUrl = Properties.Settings.Default["ApiUrl"] + "/" + Properties.Settings.Default["IdString"] + "/" + uri;
+            using (var client = new HttpClient())
+            {
+                var content = new FormUrlEncodedContent(parameters);
+                var response = client.PostAsync(requestUrl, content).Result;
+                return response.Content.ReadAsStringAsync().Result;
+            }
         }
     }
 }
