@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,12 @@ public class ZipApiController {
     
 	@Autowired
     private ZipUtil zipUtil;
+	
+	 private static String zipFloder;
+	    @Value("${lcbq.zip.path}")
+	    public void setZipFloder(String path) {
+	        zipFloder = path;
+	    }
     
     @RequestMapping(value = "api/{idString}/getZip", method = RequestMethod.POST)
     public @ResponseBody String getZip(@PathVariable("idString") String idString, @RequestBody String[] filenames) throws IOException {
@@ -35,7 +42,7 @@ public class ZipApiController {
     
     @RequestMapping(value = "api/{idString}/uploadZip", method = RequestMethod.POST)
     public @ResponseBody String uploadZip(@PathVariable("idString") String idString, @RequestParam MultipartFile[] btnFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	int uploadSuccessed = 0;
+    	int uploadSuccessed = -2;
     	try{
 			//文件类型:btnFile[0].getContentType()
 			//文件名称:btnFile[0].getName()
@@ -52,11 +59,12 @@ public class ZipApiController {
 				i++;
 			}
 			is.close();
-			File zip = new File("D://test//zip//" + btnFile[0].getOriginalFilename());
+			File zip = new File(zipFloder + btnFile[0].getOriginalFilename());
 			OutputStream os = new FileOutputStream(zip);
 			os.write(b);
 			os.flush();
 			os.close();
+			System.out.println("UnZip");
 			uploadSuccessed = zipUtil.unZip(zip, idString);
 		}catch (Exception e) {
 		}

@@ -111,6 +111,7 @@ public class ZipUtil {
     }
     
     public int unZip(File zipFile, String userName) throws IOException {
+        System.out.println(zipFile.getName());
     	List<String> filenames;
     	filenames = new ArrayList<String>();
     	int cnt = 0;
