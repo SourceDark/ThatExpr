@@ -106,7 +106,7 @@ function uploadZip() {
 		return ;
 	}
 	$.ajaxFileUpload({
-		url : '/api/123/uploadZip',
+		url : '/api/'+ idString+ '/uploadZip',
 		secureuri : false,//安全协议
 		fileElementId:'btnFile',//id
 		type : 'POST',

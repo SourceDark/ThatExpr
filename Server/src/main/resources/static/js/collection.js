@@ -172,7 +172,7 @@ function download() {
 			return expr.md5 + expr.extension;
 		});
 		$.ajax({
-			 url: '/api/123/getZip',
+			 url: '/api/' + idStr + '/getZip',
 			 type: "POST",
 			 dataType: "json",
 			 contentType:"application/json",
