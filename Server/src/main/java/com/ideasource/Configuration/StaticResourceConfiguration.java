@@ -14,15 +14,22 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 public class StaticResourceConfiguration extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
 
 	static private String myExternalFilePath;
+    static private String myExternalZipPath;
 	
 	@Value("${lcbq.expr.path}")
 	public void setMyExternalFilePath(String path) {
 		myExternalFilePath = "file:///" + path;
 	}
 	
+	@Value("${lcbq.zip.path}")
+    public void setMyExternalZipPath(String path) {
+	    myExternalZipPath = "file:///" + path;
+    }
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("expr/**").addResourceLocations(myExternalFilePath);
+        registry.addResourceHandler("zip/**").addResourceLocations(myExternalZipPath);
 		super.addResourceHandlers(registry);
 	}
 

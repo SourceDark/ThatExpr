@@ -164,3 +164,24 @@ ReactDOM.render(
 		<CollectionBox />,
 		document.getElementById('tagBox')
 );
+
+
+function download() {
+	$.get("/api/" + idStr + "/exprs/my?tag=", function(result) {
+		var files = result.map(function(expr) {
+			return expr.md5 + expr.extension;
+		});
+		$.ajax({
+			 url: '/api/123/getZip',
+			 type: "POST",
+			 dataType: "json",
+			 contentType:"application/json",
+			 data: JSON.stringify(files),
+			 success: function(response){
+			},
+			error: function(response){
+				window.location.href = '/zip/' + response.responseText;
+			}
+		});
+	});
+}
