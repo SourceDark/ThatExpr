@@ -31,13 +31,23 @@ namespace LaGeBiaoQing.Utility
             return responseFromServer;
         }
 
-        public static String PostAsync(String uri, Dictionary<String, String> parameters)
+        public static string PostAsync(String uri, Dictionary<String, String> parameters)
         {
-            String requestUrl = Properties.Settings.Default["ApiUrl"] + "/" + Properties.Settings.Default["IdString"] + "/" + uri;
+            string requestUrl = Properties.Settings.Default["ApiUrl"] + "/" + Properties.Settings.Default["IdString"] + "/" + uri;
             using (var client = new HttpClient())
             {
                 var content = new FormUrlEncodedContent(parameters);
                 var response = client.PostAsync(requestUrl, content).Result;
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        public static string DeleteAsync(string uri)
+        {
+            string requestUrl = Properties.Settings.Default["ApiUrl"] + "/" + Properties.Settings.Default["IdString"] + "/" + uri;
+            using (var client = new HttpClient())
+            {
+                var response = client.DeleteAsync(requestUrl).Result;
                 return response.Content.ReadAsStringAsync().Result;
             }
         }

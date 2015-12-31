@@ -38,7 +38,11 @@ namespace LaGeBiaoQing.View.Menu
             MenuItem addTagMenuItem = new MenuItem("收藏至");
             addTagMenuItem.MenuItems.Add("新标签");
             addTagMenuItem.MenuItems.Add("-");
-            addTagMenuItem.MenuItems.Add("默认");
+
+            MenuItem addDefaultTagMenuItem = new MenuItem("默认");
+            addDefaultTagMenuItem.Click += tryCollectDefault;
+            addTagMenuItem.MenuItems.Add(addDefaultTagMenuItem);
+
             List<TagContent> tagContents = SettingUtility.getUsedTags();
             foreach (TagContent tagContent in tagContents)
             {
@@ -50,6 +54,20 @@ namespace LaGeBiaoQing.View.Menu
                 }
             }
             contextMenu.MenuItems.Add(addTagMenuItem);
+
+            contextMenu.MenuItems.Add("-");
+
+            MenuItem removeTagMenuItem = new MenuItem("取消收藏");
+            removeTagMenuItem.Click += tryRemove;
+            contextMenu.MenuItems.Add(removeTagMenuItem);
+        }
+
+        private static void tryCollectDefault(object sender, EventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            ContextMenu contextMenu = menuItem.GetContextMenu() as ContextMenu;
+            ExprDisplayer exprDisplayer = contextMenu.SourceControl as ExprDisplayer;
+            CollectionService.createCollection("", exprDisplayer.expr.id);
         }
 
         private static void tryCollect(object sender, EventArgs e)
@@ -60,6 +78,15 @@ namespace LaGeBiaoQing.View.Menu
             TagContent tagContent = infoExtendedMenuItem.info as TagContent;
             CollectionService.createCollection(tagContent.content, exprDisplayer.expr.id);
         }
+
+        private static void tryRemove(object sender, EventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            ContextMenu contextMenu = menuItem.GetContextMenu() as ContextMenu;
+            ExprDisplayer exprDisplayer = contextMenu.SourceControl as ExprDisplayer;
+            CollectionService.removeCollection(exprDisplayer.expr.id);
+        }
+
 
         static private void sendToQQ(object sender, EventArgs e)
         {

@@ -105,4 +105,8 @@ public class CollectionApiController {
 		response.put("response", null);
 		return response;
 	}
+	
+	@RequestMapping(value = "api/{idString}/collections", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getCollections(@PathVariable("idString") String idString, @PathVariable("collectionId") Long collectionId, HttpServletRequest request)
+	}
 }

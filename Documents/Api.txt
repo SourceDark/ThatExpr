@@ -37,10 +37,11 @@
 
 ## Collection
 
-	### [get] /api/s/{idString}/collections
+	### [get] /api/{idString}/collections
 
 	Parameters:
-		- [Boolean] onlyMine: 筛选域：是否仅返回当前用户持有的收藏
+		- [Boolean] onlyMine: [Filter]是否仅返回当前用户持有的收藏
+		- [String] content: [Filter]collection的content域
 
 	Response:
 		- 

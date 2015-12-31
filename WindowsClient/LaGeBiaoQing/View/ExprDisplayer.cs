@@ -18,19 +18,6 @@ namespace LaGeBiaoQing.View.PictureBoxs
         public ExprDisplayer(Expr expr)
         {
             this.expr = expr;
-            /*
-            ContextMenu cm = new ContextMenu();
-            cm.MenuItems.Add("发送至QQ窗口");
-            cm.MenuItems.Add("发送至微信窗口");
-            cm.MenuItems.Add("-");
-            cm.MenuItems[0].Click += ExprDisplayer_SendToQQ;
-            cm.MenuItems[1].Click += ExprDisplayer_SendToWeChat;
-
-            
-            List<TagContent> tagContents = SettingUtility.getUsedTags();
-            Console.Out.WriteLine(tagContents);
-            addTagMenuItem.MenuItems.Add("默认");
-            cm.MenuItems.Add(addTagMenuItem);*/
 
             this.ContextMenu = ExprDisplayerRightClickMenuFactory.getInstance();
             this.Click += ExprDisplayer_Click;

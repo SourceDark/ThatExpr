@@ -12,8 +12,8 @@ namespace LaGeBiaoQing.Service
 {
     class Response<T>
     {
-        public enum reponseStatus { failure, success };
-        public reponseStatus status;
+        public enum responseStatus { failure, success };
+        public responseStatus status = 0;
         public string reason = null;
         public T response = default(T);
     }
@@ -28,7 +28,20 @@ namespace LaGeBiaoQing.Service
                { "exprId", exprId.ToString() }
             };
             Response<Tag> response = JsonConvert.DeserializeObject<Response<Tag>>(NetworkUtility.PostAsync("collections", paras));
-            if (response.status == Response<Tag>.reponseStatus.failure)
+            if (response.status == Response<Tag>.responseStatus.failure)
+            {
+                MessageBox.Show(response.reason, "收藏失败", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("收藏成功", "收藏成功", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+        }
+
+        public static void removeCollection(long collectionId)
+        {
+            Response<Tag> response = JsonConvert.DeserializeObject<Response<Tag>>(NetworkUtility.DeleteAsync("collections/" + collectionId));
+            if (response.status == Response<Tag>.responseStatus.failure)
             {
                 MessageBox.Show(response.reason, "收藏失败", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
