@@ -29,6 +29,9 @@ import com.ideasource.Model.ExprRepository;
 import com.ideasource.Model.Collection;
 import com.ideasource.Model.CollectionRepository;
 
+import com.github.junrar.Archive;
+import com.github.junrar.rarfile.FileHeader;
+ 
 @Component
 public class ZipUtil {
 
@@ -107,42 +110,83 @@ public class ZipUtil {
         return zipName;
     }
     
-    public List<String> unZip(File zipFile, String userName) throws IOException {
+    public int unZip(File zipFile, String userName) throws IOException {
     	List<String> filenames;
     	filenames = new ArrayList<String>();
+    	int cnt = 0;
     	try {  
-    		File pathFile = new File(exprFolder);  
-            if(!pathFile.exists()){  
-                pathFile.mkdirs();  
-            }  
-            ZipFile zip = new ZipFile(zipFile);  
-            for(Enumeration entries = zip.getEntries();entries.hasMoreElements();){  
-                ZipEntry entry = (ZipEntry)entries.nextElement();  
-                String zipEntryName = entry.getName();  
-                filenames.add(entry.getName());
-                InputStream in = zip.getInputStream((org.apache.tools.zip.ZipEntry) entry);  
-                String outPath = (exprFolder+zipEntryName).replaceAll("\\*", "/");;  
-                //判断路径是否存在,不存在则创建文件路径  
-                File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));  
-                if(!file.exists()){  
-                    file.mkdirs();  
-                }  
-                //判断文件全路径是否为文件夹,如果是上面已经上传,不需要解压  
-                if(new File(outPath).isDirectory()){  
-                    continue;  
-                }  
-                //输出文件路径信息  
-                System.out.println(outPath);  
-                  
-                OutputStream out = new FileOutputStream(outPath);  
-                byte[] buf1 = new byte[1024];  
-                int len;  
-                while((len=in.read(buf1))>0){  
-                    out.write(buf1,0,len);  
-                }  
-                in.close();  
-                out.close();
-           	}  
+    		if (zipFile.getName().toLowerCase().endsWith(".rar")) {
+    			Archive a = null;
+    	        try {
+    	            a = new Archive(zipFile);
+    	            if (a != null) {
+    	                a.getMainHeader().print(); // 打印文件信息.
+    	                FileHeader fh = a.nextFileHeader();
+    	                while (fh != null) {
+    	                    if (fh.isDirectory()) { // 文件夹 
+    	                        File fol = new File(exprFolder + fh.getFileNameString());
+    	                        fol.mkdirs();
+    	                    } else { // 文件
+    	                        File out = new File(exprFolder + fh.getFileNameString().trim());
+    	                        filenames.add(fh.getFileNameString());
+    	                        //System.out.println(out.getAbsolutePath());
+    	                        try {// 之所以这么写try，是因为万一这里面有了异常，不影响继续解压. 
+    	                            if (!out.exists()) {
+    	                                if (!out.getParentFile().exists()) {// 相对路径可能多级，可能需要创建父目录. 
+    	                                    out.getParentFile().mkdirs();
+    	                                }
+    	                                out.createNewFile();
+    	                            }
+    	                            FileOutputStream os = new FileOutputStream(out);
+    	                            a.extractFile(fh, os);
+    	                            os.close();
+    	                        } catch (Exception ex) {
+    	                            ex.printStackTrace();
+    	                        }
+    	                    }
+    	                    fh = a.nextFileHeader();
+    	                }
+    	                a.close();
+    	            }
+    	        } catch (Exception e) {
+    	            e.printStackTrace();
+    	        }
+            }	else if (zipFile.getName().toLowerCase().endsWith(".zip")) {
+	    		File pathFile = new File(exprFolder);  
+	            if(!pathFile.exists()){  
+	                pathFile.mkdirs();  
+	            }  
+	            ZipFile zip = new ZipFile(zipFile);  
+	            for(Enumeration entries = zip.getEntries();entries.hasMoreElements();){  
+	                ZipEntry entry = (ZipEntry)entries.nextElement();  
+	                String zipEntryName = entry.getName();  
+	                filenames.add(entry.getName());
+	                InputStream in = zip.getInputStream((org.apache.tools.zip.ZipEntry) entry);  
+	                String outPath = (exprFolder+zipEntryName).replaceAll("\\*", "/");;  
+	                //判断路径是否存在,不存在则创建文件路径  
+	                File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));  
+	                if(!file.exists()){  
+	                    file.mkdirs();  
+	                }  
+	                //判断文件全路径是否为文件夹,如果是上面已经上传,不需要解压  
+	                if(new File(outPath).isDirectory()){  
+	                    continue;  
+	                }  
+	                //输出文件路径信息  
+	                System.out.println(outPath);  
+	                  
+	                OutputStream out = new FileOutputStream(outPath);  
+	                byte[] buf1 = new byte[1024];  
+	                int len;  
+	                while((len=in.read(buf1))>0){  
+	                    out.write(buf1,0,len);  
+	                }  
+	                in.close();  
+	                out.close();
+	           	}  
+            }	else {
+            	return -1;
+            }
         	System.out.println("******************解压完毕********************");  
         	
         	// save expr
@@ -155,6 +199,7 @@ public class ZipUtil {
     				System.out.println("The file is existed");
     				continue;
     			}
+    			++cnt;
     			file.renameTo(newFile);
             	System.out.println(md5);
             	System.out.println(extension);
@@ -178,6 +223,6 @@ public class ZipUtil {
             // TODO Auto-generated catch block  
             e.printStackTrace();  
         }  
-		return null;
+		return cnt;
     }
 }

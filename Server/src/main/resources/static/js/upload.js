@@ -114,7 +114,7 @@ function uploadZip() {
 		data: null,
 		async : false,
 		error : function(data,status,e) {
-			alert('文件已上传');
+			alert(data.responseText);
 		},
 		success : function(json) {
 			if (json.resultFlag==false){

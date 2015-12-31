@@ -36,6 +36,7 @@ public class ZipApiController {
     
     @RequestMapping(value = "api/{idString}/uploadZip", method = RequestMethod.POST)
     public @ResponseBody String uploadZip(@PathVariable("idString") String idString, @RequestParam MultipartFile[] btnFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	int uploadSuccessed = 0;
     	try{
 			//文件类型:btnFile[0].getContentType()
 			//文件名称:btnFile[0].getName()
@@ -57,9 +58,9 @@ public class ZipApiController {
 			os.write(b);
 			os.flush();
 			os.close();
-			zipUtil.unZip(zip, idString);
+			uploadSuccessed = zipUtil.unZip(zip, idString);
 		}catch (Exception e) {
 		}
-        return "get file " + btnFile[0].getOriginalFilename();
+        return "upload " + uploadSuccessed + " pics successfully";
     }
 }
