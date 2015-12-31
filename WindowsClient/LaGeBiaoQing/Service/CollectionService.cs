@@ -38,16 +38,18 @@ namespace LaGeBiaoQing.Service
             }
         }
 
-        public static void RemoveCollection(long collectionId)
+        public static bool RemoveCollection(long collectionId)
         {
             Response<Tag> response = JsonConvert.DeserializeObject<Response<Tag>>(NetworkUtility.DeleteAsync("collections/" + collectionId));
             if (response.status == Response<Tag>.responseStatus.failure)
             {
                 MessageBox.Show(response.reason, "操作失败", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
             }
             else
             {
                 MessageBox.Show("取消收藏成功", "操作成功", MessageBoxButtons.OK, MessageBoxIcon.None);
+                return true;
             }
         }
 
