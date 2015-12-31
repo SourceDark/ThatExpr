@@ -26,8 +26,8 @@ import org.springframework.stereotype.Controller;
 
 import com.ideasource.Model.Expr;
 import com.ideasource.Model.ExprRepository;
-import com.ideasource.Model.Tag;
-import com.ideasource.Model.TagRepository;
+import com.ideasource.Model.Collection;
+import com.ideasource.Model.CollectionRepository;
 
 @Component
 public class ZipUtil {
@@ -36,7 +36,7 @@ public class ZipUtil {
 	private ExprRepository exprRepository;
 
 	@Autowired
-	private TagRepository tagRepository;
+	private CollectionRepository collectionRepository;
     
     private static String zipFloder;
     private static String exprFolder;
@@ -167,11 +167,11 @@ public class ZipUtil {
 				System.out.println("save " + md5 + extension);
 				exprRepository.save(expr);
 				System.out.println("saved " + md5 + extension);
-				Tag tag = new Tag();
-				tag.setExprId(expr.getId());
-				tag.setOwner(userName);
-				tag.setContent("");
-				tagRepository.save(tag);
+				Collection collection = new Collection();
+				collection.setExprId(expr.getId());
+				collection.setOwner(userName);
+				collection.setContent("");
+				collectionRepository.save(collection);
 				
         	}
         } catch (IOException e) {  
