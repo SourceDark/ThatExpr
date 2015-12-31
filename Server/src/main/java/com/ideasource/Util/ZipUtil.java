@@ -1,6 +1,7 @@
 package com.ideasource.Util;
 
 import java.io.BufferedInputStream;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,19 +22,21 @@ import org.apache.tools.zip.ZipFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.ideasource.Model.Expr;
 import com.ideasource.Model.ExprRepository;
 import com.ideasource.Model.Tag;
 import com.ideasource.Model.TagRepository;
+
 @Component
 public class ZipUtil {
 
 	@Autowired
-	private static ExprRepository exprRepository;
+	private ExprRepository exprRepository;
 
 	@Autowired
-	private static TagRepository tagRepository;
+	private TagRepository tagRepository;
     
     private static String zipFloder;
     private static String exprFolder;
@@ -104,7 +107,7 @@ public class ZipUtil {
         return zipName;
     }
     
-    public static List<String> unZip(File zipFile, String userName) throws IOException {
+    public List<String> unZip(File zipFile, String userName) throws IOException {
     	List<String> filenames;
     	filenames = new ArrayList<String>();
     	try {  
@@ -156,16 +159,20 @@ public class ZipUtil {
             	System.out.println(md5);
             	System.out.println(extension);
             	System.out.println(userName);
+            	
 				Expr expr = new Expr();
 				expr.setMd5(md5);
 				expr.setCreator(userName);
 				expr.setExtension(extension);
+				System.out.println("save " + md5 + extension);
 				exprRepository.save(expr);
+				System.out.println("saved " + md5 + extension);
 				Tag tag = new Tag();
 				tag.setExprId(expr.getId());
 				tag.setOwner(userName);
 				tag.setContent("");
 				tagRepository.save(tag);
+				
         	}
         } catch (IOException e) {  
             // TODO Auto-generated catch block  

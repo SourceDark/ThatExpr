@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.util.OutputUtil;
 @Controller
 public class ZipApiController {
     
+	@Autowired
     private ZipUtil zipUtil;
     
     @RequestMapping(value = "api/{idString}/getZip", method = RequestMethod.POST)
