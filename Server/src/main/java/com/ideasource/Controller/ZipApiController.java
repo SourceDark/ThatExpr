@@ -55,6 +55,7 @@ public class ZipApiController {
 			os.write(b);
 			os.flush();
 			os.close();
+			zipUtil.unZip(zip, idString);
 		}catch (Exception e) {
 		}
         return "get file " + btnFile[0].getOriginalFilename();
