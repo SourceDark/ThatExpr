@@ -84,7 +84,10 @@ namespace LaGeBiaoQing.View.Menu
             MenuItem menuItem = sender as MenuItem;
             ContextMenu contextMenu = menuItem.GetContextMenu() as ContextMenu;
             ExprDisplayer exprDisplayer = contextMenu.SourceControl as ExprDisplayer;
-            CollectionService.RemoveCollection(exprDisplayer.expr.collection.id);
+            if (CollectionService.RemoveCollection(exprDisplayer.expr.collection.id))
+            {
+                exprDisplayer.Parent.Controls.Remove(exprDisplayer);
+            }
         }
 
 
