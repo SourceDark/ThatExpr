@@ -18,7 +18,11 @@
 	        <li th:class="(${itemActive}==collection)?'active':''">
 	        	<a th:href="@{/s/{idStr}/collection(idStr=${idString})}">收藏</a>
 	        </li>
-	        <li><a href="#">搜索</a></li>
+	        <li th:class="(${itemActive}==search)?'active':''">
+	        	<a th:href="@{/s/{idStr}/search(idStr=${idString})}">搜索</a>
+	        </li>
+	        
+	        <!-- <li th:class><a href="#">搜索</a></li> -->
 	        <li th:class="(${itemActive}==upload)?'active':''">
 	        	<a th:href="@{/s/{idStr}/upload(idStr=${idString})}">上传</a>
 	        </li>

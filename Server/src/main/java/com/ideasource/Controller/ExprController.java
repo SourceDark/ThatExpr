@@ -14,6 +14,12 @@ public class ExprController {
 		model.addAttribute("idString", idString);
 		return "upload";
 	}
+	
+	@RequestMapping(value = "/s/{idString}/search", method = RequestMethod.GET)
+	public String search(@PathVariable("idString") String idString, Model model) {
+		model.addAttribute("idString", idString);
+		return "search";
+	}
 
 	
 }

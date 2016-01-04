@@ -1,0 +1,48 @@
+<html>
+
+<head>
+	<title>上传 | lcexpr</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="/css/common/nav.css"></link>
+	<link rel="stylesheet" href="/css/common/content.css"></link>
+	<link rel="stylesheet" href="/css/upload.css"></link>
+	<script src="/js/common/common.js"></script>
+	<script src="/js/upload.js"></script>
+    <script src="/js/lib/jquery-1.11.3.js"></script>
+    <script src="/js/lib/ajaxfileupload.js"></script>
+</head>
+
+<body>
+	<div th:include="common/nav :: nav('search')"></div>
+	<div class="content">
+		<div class="container">
+			<h2 class="title">上传新表情</h2>
+			<div class="half-panel-left">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">方法一：将表情从聊天框（或文件夹）中拖到下面的方框中</h3>
+					</div>
+					<div class="panel-body">
+						<div id="drop" class="drop">>> 拖到这里 &lt;&lt;</div>
+					</div>
+				</div>
+			</div>
+			<div class="half-panel-right">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">预览</h3>
+					</div>
+					<div class="panel-body">
+						<div id="display"></div>
+					</div>
+				</div>
+				<button class="btn btn-default" type="submit" onclick="uploadButtonOnClick()">上传</button>
+			</div>
+		</div>
+	</div>
+					<div id="status">Drag the files from a folder to a selected area ...</div>
+					<div id="list"></div>
+	<input style="display:none" id="id" th:value="${idString}"/>
+</body>
+
+</html>
