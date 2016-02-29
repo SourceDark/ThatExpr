@@ -146,6 +146,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\Menu\ExprDisplayerRightClickMenuFactory.cs" />
+    <Compile Include="View\PrimaryTabPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\Settings\SettingsTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
