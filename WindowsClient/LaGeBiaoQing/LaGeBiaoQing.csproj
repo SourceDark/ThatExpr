@@ -181,6 +181,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -209,6 +210,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favion.ico" />
+    <None Include="Resources\Favorites-24-1.png" />
+    <None Include="Resources\Settings-24-2.png" />
+    <None Include="Resources\Favorites-24-2.png" />
+    <None Include="Resources\Compass-32-8.png" />
+    <None Include="Resources\Compass-24-2.png" />
+    <None Include="Resources\Compass-24-0.png" />
     <None Include="Resources\Minus-16-2.png" />
     <None Include="Resources\Minus-16-1.png" />
     <None Include="Resources\Minus-16-3.png" />
