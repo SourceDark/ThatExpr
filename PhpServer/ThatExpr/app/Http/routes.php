@@ -10,10 +10,20 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Http\Controllers;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'api'], function()
+{
+    Route::get('/', function() {
+        return Controllers\ExprApiController::index();
+    });
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
