@@ -64,6 +64,7 @@ namespace LaGeBiaoQing.View
                 newItem.FlatAppearance.BorderSize = 0;
                 newItem.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
                 newItem.Image = ((System.Drawing.Image)(resources.GetObject(normal_files[i])));
+                
                 newItem.Click += NewItem_Click;
                 tabBarItems[i] = newItem;
                 tabPanel.Controls.Add(newItem);
