@@ -210,6 +210,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favion.ico" />
+    <None Include="Resources\Settings-24-2-Selected.png" />
+    <None Include="Resources\Favorites-24-1-Selected.png" />
+    <None Include="Resources\Compass-24-2-Selected.png" />
+    <None Include="Resources\Compass-24-2-SunFlower.png" />
+    <None Include="Resources\Compass-24-SunFlower.png" />
+    <None Include="Resources\Compass-24-2-Orange.png" />
     <None Include="Resources\Favorites-24-1.png" />
     <None Include="Resources\Settings-24-2.png" />
     <None Include="Resources\Favorites-24-2.png" />

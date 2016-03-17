@@ -22,9 +22,12 @@ namespace LaGeBiaoQing.View
         private static TabBarItem[] tabBarItems;
         private TabBarItem selected;
 
+        static string[] normal_files = { "Favorites-24-1", "Compass-24-2", "Settings-24-2" };
+        static string[] selected_files = { "Favorites-24-1-Selected", "Compass-24-2-Selected", "Settings-24-2-Selected" };
+        static System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+
         public PrimaryTabPanel(int width, int boardHeight, int tabHeight, Color boardColor, Color tabColor)
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 
             this.Width = width;
             this.Height = boardHeight + tabHeight;
@@ -45,7 +48,7 @@ namespace LaGeBiaoQing.View
             tabPanel.BackColor = tabColor;
             this.Controls.Add(tabPanel);
 
-            string[] files = { "Favorites-24-1", "Compass-24-2", "Settings-24-2" };
+
             tabBarItems = new TabBarItem[totalCount];
             for (int i = 0; i < totalCount; i++)
             {
@@ -57,10 +60,10 @@ namespace LaGeBiaoQing.View
                 newItem.Height = tabHeight;
                 newItem.FlatStyle = FlatStyle.Flat;
                 newItem.FlatAppearance.MouseDownBackColor = ConstUtility.TabBar_BackColor_Selected;
-                newItem.FlatAppearance.MouseOverBackColor = ConstUtility.TabBar_BackColor;
+                newItem.FlatAppearance.MouseOverBackColor = ConstUtility.TabBar_BackColor_Selected;
                 newItem.FlatAppearance.BorderSize = 0;
                 newItem.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-                newItem.Image = ((System.Drawing.Image)(resources.GetObject(files[i])));
+                newItem.Image = ((System.Drawing.Image)(resources.GetObject(normal_files[i])));
                 newItem.Click += NewItem_Click;
                 tabBarItems[i] = newItem;
                 tabPanel.Controls.Add(newItem);
@@ -71,13 +74,15 @@ namespace LaGeBiaoQing.View
 
         private void NewItem_Click(object sender, EventArgs e)
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+
             TabBarItem item = sender as TabBarItem;
             if (item != selected) {
                 if (selected != null)
                 {
-                    selected.BackColor = ConstUtility.TabBar_BackColor;
+                    selected.Image = ((System.Drawing.Image)(resources.GetObject(normal_files[selected.index])));
                 }
-                item.BackColor = ConstUtility.TabBar_BackColor_Selected;
+                item.Image = ((System.Drawing.Image)(resources.GetObject(selected_files[item.index])));
                 selected = item;
             }
         }
