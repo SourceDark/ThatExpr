@@ -18,6 +18,17 @@ public class Expr {
 
 	private String creator;
 
+	public Expr() {
+		
+	}
+	
+	public Expr(Expr expr) {
+		this.id = expr.id;
+		this.md5 = expr.md5;
+		this.extension = expr.extension;
+		this.creator = expr.creator;
+	}
+	
 	public Long getId() {
 		return id;
 	}

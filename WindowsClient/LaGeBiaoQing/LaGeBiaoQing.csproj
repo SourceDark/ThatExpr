@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Model\Collection.cs" />
     <Compile Include="Service\CollectionService.cs" />
+    <Compile Include="Utility\ConstUtility.cs" />
     <Compile Include="Utility\ExprUtility.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -146,6 +147,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\Menu\ExprDisplayerRightClickMenuFactory.cs" />
+    <Compile Include="View\PrimaryTabPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\Settings\SettingsTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -177,6 +181,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -205,6 +210,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favion.ico" />
+    <None Include="Resources\Settings-24-2-Selected.png" />
+    <None Include="Resources\Favorites-24-1-Selected.png" />
+    <None Include="Resources\Compass-24-2-Selected.png" />
+    <None Include="Resources\Compass-24-2-SunFlower.png" />
+    <None Include="Resources\Compass-24-SunFlower.png" />
+    <None Include="Resources\Compass-24-2-Orange.png" />
+    <None Include="Resources\Favorites-24-1.png" />
+    <None Include="Resources\Settings-24-2.png" />
+    <None Include="Resources\Favorites-24-2.png" />
+    <None Include="Resources\Compass-32-8.png" />
+    <None Include="Resources\Compass-24-2.png" />
+    <None Include="Resources\Compass-24-0.png" />
+    <None Include="Resources\Minus-16-2.png" />
+    <None Include="Resources\Minus-16-1.png" />
+    <None Include="Resources\Minus-16-3.png" />
+    <None Include="Resources\Close-16-3.png" />
+    <None Include="Resources\Close-16-2.png" />
+    <None Include="Resources\Close-16-4.png" />
+    <None Include="Resources\Close-16.png" />
+    <None Include="Resources\Close-256.png" />
+    <None Include="Resources\closeIcon.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
