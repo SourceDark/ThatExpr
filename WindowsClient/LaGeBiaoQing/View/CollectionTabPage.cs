@@ -4,72 +4,77 @@ using System.Windows.Forms;
 using LaGeBiaoQing.Model;
 using LaGeBiaoQing.Utility;
 using System;
+using System.ComponentModel;
+using LaGeBiaoQing.Service;
+using System.Drawing;
+using System.Collections.Generic;
 
 namespace LaGeBiaoQing.View.TabPages
 {
-    class CollectionTagPage : TabPage
+    class CollectionTabPage : Panel
     {
-        // Custom Components
-        private TagContentComboBox tagContentComboBox;
-        private ExprsDisplayer exprsDisplayer;
-        private ExprPreviewer exprPreviewer;
+        private static int numberOfRows = 5;
+        private static int numberOfColunms = 6;
+        private static int borderWidth = 50;
+        private BackgroundWorker worker;
 
-        public CollectionTagPage()
+        private List<ExprsDisplayer> exprDisplayers;
+
+        public CollectionTabPage(int width, int height)
         {
-            this.Location = new System.Drawing.Point(4, 22);
-            this.Name = "CollectionPage";
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(282, 394);
-            this.Text = "收藏";
-            this.UseVisualStyleBackColor = true;
+            // View
+            this.Width = width;
+            this.Height = height;
 
-            tagContentComboBox = new TagContentComboBox(TagContentComboBoxType.InCollectionTabPage);
-            tagContentComboBox.FormattingEnabled = true;
-            tagContentComboBox.Location = new System.Drawing.Point(6, 8);
-            tagContentComboBox.Name = "tagContentComboBox";
-            tagContentComboBox.Size = new System.Drawing.Size(121, 20);
-            tagContentComboBox.TabIndex = 0;
-            tagContentComboBox.SelectTagContent += TagContentComboBox_SelectTagContent;
-            tagContentComboBox.SelectRecentlyUsed += TagContentComboBox_SelectRecentlyUsed;
-            this.Controls.Add(tagContentComboBox);
+            int topToBound = (height - numberOfRows * (borderWidth - 1) - 1) / 2;
+            int leftToBound = (width - numberOfColunms * (borderWidth - 1) - 1) / 2;
+            for (int i = 0; i < numberOfRows; i++)
+                for (int j = 0; j < numberOfColunms; j++) {
+                    Panel panel = new Panel();
+                    panel.Top = topToBound + i * (borderWidth - 1) + 1;
+                    panel.Left = leftToBound + j * (borderWidth - 1) + 1;
+                    panel.Width = borderWidth;
+                    panel.Height = borderWidth;
+                    panel.BackColor = ConstUtility.GlobalBorderColor;
+                    this.Controls.Add(panel);
+                    
+                    Panel panel1 = new Panel();
+                    panel1.Top = topToBound + i * (borderWidth - 1) + 2;
+                    panel1.Left = leftToBound + j * (borderWidth - 1) + 2;
+                    panel1.Width = borderWidth - 2;
+                    panel1.Height = borderWidth - 2;
+                    panel1.BackColor = ConstUtility.GlobalBackColor();
+                    this.Controls.Add(panel1);
+                    panel1.BringToFront();
 
-            exprsDisplayer = new ExprsDisplayer();
-            exprsDisplayer.AutoScroll = true;
-            exprsDisplayer.AutoScrollMargin = new System.Drawing.Size(10, 0);
-            exprsDisplayer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            exprsDisplayer.Location = new System.Drawing.Point(6, 34);
-            exprsDisplayer.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            exprsDisplayer.Size = new System.Drawing.Size(270, 167);
-            exprsDisplayer.MouseOnExpr += ExprsDisplayer_MouseOnExpr;
-            this.Controls.Add(exprsDisplayer);
 
-            exprPreviewer = new ExprPreviewer();
-            exprPreviewer.Location = new System.Drawing.Point(7, 208);
-            exprPreviewer.Name = "groupBox1";
-            exprPreviewer.Size = new System.Drawing.Size(269, 180);
-            exprPreviewer.TabIndex = 4;
-            exprPreviewer.TabStop = false;
-            exprPreviewer.Text = "预览";
-            this.Controls.Add(exprPreviewer);
+                }
 
-            tagContentComboBox.loadTagContents();
+            // Data
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+
+            // Event
+            EnvUtility.CollectedExprsChanged += EnvUtility_CollectedExprsChanged;
+        }
+        
+        private void EnvUtility_CollectedExprsChanged()
+        {
+            Console.Out.WriteLine("0");
         }
 
-        private void TagContentComboBox_SelectRecentlyUsed(object sender)
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            SettingUtility.exprsDisplayer = exprsDisplayer;
-            exprsDisplayer.loadRecentlyUsedExprs();
+            EnvUtility.collectedExprs = ExprService.GetCollectedExprs();
         }
 
-        private void TagContentComboBox_SelectTagContent(object sender, TagContent selectTagContent)
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            SettingUtility.exprsDisplayer = null;
-            exprsDisplayer.loadRemoteExprs(selectTagContent.content, SettingUtility.getIdString());
+            Console.Out.WriteLine(EnvUtility.collectedExprs.Count);
+            EnvUtility.CollectedExprsChangeFinishied();
         }
-
-        private void ExprsDisplayer_MouseOnExpr(object sender, Expr expr)
-        {
-            exprPreviewer.Expr = expr;
-        }
+        
     }
 }

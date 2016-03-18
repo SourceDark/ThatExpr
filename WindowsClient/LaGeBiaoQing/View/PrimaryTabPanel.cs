@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using LaGeBiaoQing.View.TabPages;
 
 namespace LaGeBiaoQing.View
 {
@@ -48,6 +49,10 @@ namespace LaGeBiaoQing.View
             tabPanel.BackColor = tabColor;
             this.Controls.Add(tabPanel);
 
+            CollectionTabPage tabPage = new CollectionTabPage(this.Width, boardHeight);
+            tabPage.Left = 0;
+            tabPage.Top = 0;
+            boardPanel.Controls.Add(tabPage);
 
             tabBarItems = new TabBarItem[totalCount];
             for (int i = 0; i < totalCount; i++)

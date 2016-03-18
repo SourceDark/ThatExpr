@@ -113,6 +113,7 @@
     <Compile Include="Model\Collection.cs" />
     <Compile Include="Service\CollectionService.cs" />
     <Compile Include="Utility\ConstUtility.cs" />
+    <Compile Include="Utility\EnvUtility.cs" />
     <Compile Include="Utility\ExprUtility.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

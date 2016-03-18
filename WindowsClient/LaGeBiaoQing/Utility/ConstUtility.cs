@@ -20,6 +20,7 @@ namespace LaGeBiaoQing.Utility
         public static Color TabBar_BackColor_Selected { get { return Color.FromArgb(255, 52, 73, 94); } }
         public static Color TabBar_BackColor_MouseOver { get { return Color.FromArgb(255, 57, 67, 87); } }
         public static Color TabBar_BackColor { get { return Color.FromArgb(255, 44, 62, 80); } }
-        
+
+        public static Color GlobalBorderColor { get { return Color.FromArgb(128, 62, 74, 105); } }
     }
 }

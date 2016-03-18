@@ -15,6 +15,12 @@ namespace LaGeBiaoQing.View.PictureBoxs
     {
         public Expr expr;
 
+        public ExprDisplayer()
+        {
+            this.expr = null;
+            this.Click += ExprDisplayer_Click;
+        }
+
         public ExprDisplayer(Expr expr)
         {
             this.expr = expr;

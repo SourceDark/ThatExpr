@@ -24,5 +24,12 @@ namespace LaGeBiaoQing.Service
             List<Expr> list = JsonConvert.DeserializeObject<List<Expr>>(response);
             return list;
         }
+
+        public static List<Expr> GetCollectedExprs()
+        {
+            String response = NetworkUtility.SyncRequest("exprs");
+            List<Expr> list = JsonConvert.DeserializeObject<List<Expr>>(response);
+            return list;
+        }
     }
 }
