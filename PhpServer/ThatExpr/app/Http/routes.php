@@ -16,10 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'api'], function()
+Route::group(['prefix' => 'api/{userId}'], function()
 {
-    Route::get('/', function() {
-        return Controllers\ExprApiController::index();
+    Route::get('/exprs', function($userId) {
+        return Controllers\ExprApiController::getAllExprByUserId($userId);
     });
 });
 
