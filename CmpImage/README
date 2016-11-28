@@ -1,0 +1,5 @@
+this is a system used to get the similarity of two pictures(png,jpg,jpeg,gif...)
+
+we used cximage and add the libcximage.a in our shared object so you don't have to install cximage in your server and all you have to do is place our CmpImage.so in right place where your aplication can find
+
+please see the API in CmpImage.java
